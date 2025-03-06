@@ -165,6 +165,17 @@ public class RobotContainer {
     controller.povUp().onTrue(new SetWristAndElevator(this, 2)); // L1
     // level 4 state, depend on is coral loaded
     controller.povRight().onTrue(new SetWristAndElevator(this, 3)); // L2
+    controller.pov(45).onTrue(new SetWristAndElevator(this, 3));
+    controller.pov(45).onTrue(new SetWristAndElevator(this, 3));
+    /*
+    controller2.povDown().onTrue(new SetWristAndElevator(this, 1)); // Ground
+    // level 2 state, depend on is coral loaded
+    controller2.povLeft().onTrue(new SetWristAndElevator(this, 5)); // Transfer
+    // level 3 state, depend on is coral loaded
+    controller2.povUp().onTrue(new SetWristAndElevator(this, 2)); // L1
+    // level 4 state, depend on is coral loaded
+    controller2.povRight().onTrue(new SetWristAndElevator(this, 3)); // L2
+    */
   }
 
   /**

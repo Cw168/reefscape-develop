@@ -31,20 +31,26 @@ public class SetWristAndElevator extends Command {
   @Override
   public void initialize() {
     switch (level) {
-      case 1:
+      case 1: // Ground
         robot.targetState = SuperStructureState.STATE_L1;
         break;
-      case 2:
+      case 2: // L1
         robot.targetState = SuperStructureState.STATE_L2;
         break;
-      case 3:
+      case 3: // L2
         robot.targetState = SuperStructureState.STATE_L3;
         break;
-      case 4:
+      case 4: // L3
         robot.targetState = SuperStructureState.STATE_L4;
         break;
-      case 5:
+      case 5: // Transfer
         robot.targetState = SuperStructureState.STATE_TRANSFER;
+        break;
+      case 6: // L1 Ball
+        robot.targetState = SuperStructureState.STATE_L1B;
+        break;
+      case 7: // L1 Ball
+        robot.targetState = SuperStructureState.STATE_L2B;
         break;
       default:
         robot.targetState = SuperStructureState.STATE_SOURCE;
