@@ -13,19 +13,19 @@ public class SuperStructureState {
   public static final double SOURCE_ANGLE = 50;
 
   public static final double L0_HEIGHT = 0;
-  public static final double L1_HEIGHT = 5.5; // Down //Ground intake
-  public static final double L2_HEIGHT = 18; // Left //Transfer
-  public static final double L3_HEIGHT = 45; // Up
-  public static final double L4_HEIGHT = 72; // Right
-  public static final double TRANSFER_HEIGHT = 12; // Right
-  public static final double L1B_HEIGHT = 5.5; // Down //Ground intake
-  public static final double L2B_HEIGHT = 18; // Left //Transfer
+  public static final double L1_HEIGHT = 5.5; // Ground intake
+  public static final double L2_HEIGHT = 18; // L1
+  public static final double L3_HEIGHT = 45; // L2
+  public static final double L4_HEIGHT = 62; // L3
+  public static final double TRANSFER_HEIGHT = 12; // Right //Transfer
+  public static final double L1B_HEIGHT = 45; // L1 Outake
+  public static final double L2B_HEIGHT = 60; // L2 Outake
 
   public static final double L0_ANGLE = -100;
   public static final double L1_ANGLE = -100;
   public static final double L2_ANGLE = -100;
   public static final double L3_ANGLE = -100;
-  public static final double L4_ANGLE = -100;
+  public static final double L4_ANGLE = -80;
   public static final double TRANSFER_ANGLE = -100;
   public static final double L1B_ANGLE = -100;
   public static final double L2B_ANGLE = -100;

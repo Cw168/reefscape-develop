@@ -25,6 +25,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SuperStructureState;
 import frc.robot.generated.TunerConstants;
@@ -43,8 +44,8 @@ public class Wrist extends SubsystemBase {
   public static final double reduction =
       75; // wrist gearbox gear ration 60.0 * 60.0 * 30.0 / (10.0 * 18.0 * 12.0)
   // horizontal
-  public static final double minAngle = -150;
-  public static final double maxAngle = -100;
+  public static final double minAngle = -175;
+  public static final double maxAngle = -80;
 
   double targetDegrees = SuperStructureState.SOURCE_ANGLE;
 
@@ -113,6 +114,8 @@ public class Wrist extends SubsystemBase {
     if (DriverStation.isDisabled()) {
       talon.setControl(new NeutralOut());
     }
+    SmartDashboard.putNumber("TarAngle", targetDegrees);
+    SmartDashboard.putNumber("CurAngle", pivotInputs.currentAngle);
   }
 
   public void setVoltage(double voltage) {
@@ -125,7 +128,13 @@ public class Wrist extends SubsystemBase {
       talon.set(0);
       talon.stopMotor();
     } else {
-      talon.set(moveWrist);
+      if (pivotInputs.currentAngle <= maxAngle + 10 && pivotInputs.currentAngle >= minAngle - 10) {
+        talon.set(moveWrist);
+      } else if (pivotInputs.currentAngle >= maxAngle && !robotContainer.m_controller.getXButton() && !robotContainer.m_controller.getYButton()) {
+        talon.set(0.1);
+      } else if (pivotInputs.currentAngle <= minAngle && !robotContainer.m_controller.getXButton() && !robotContainer.m_controller.getYButton()) {
+        talon.set(-0.1);
+      }
     }
   }
 

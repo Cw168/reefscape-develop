@@ -10,6 +10,7 @@ package frc.robot;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants.DriveMotorArrangement;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants.SteerMotorArrangement;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.generated.TunerConstants;
@@ -128,13 +129,16 @@ public class Robot extends LoggedRobot {
     }
 
     if (robotContainer.m_controller.getXButton()) { // Up
-      curAngle += 3;
-      robotContainer.wrist.setWristAngle(curAngle);
+      // curAngle += 5;
+      // robotContainer.wrist.setWristAngle(curAngle);
+      robotContainer.wrist.moveWrist(0.25);
     } else if (robotContainer.m_controller.getYButton()) {
-      curAngle -= 3;
-      robotContainer.wrist.setWristAngle(curAngle);
+      // curAngle -= 5;
+      // robotContainer.wrist.setWristAngle(curAngle);
+      robotContainer.wrist.moveWrist(-0.25);
     } else {
-      robotContainer.wrist.setWristAngle(curAngle);
+      // robotContainer.wrist.setWristAngle(curAngle);
+      robotContainer.wrist.moveWrist(0);
     }
 
     if (robotContainer.m_controller.getAButton()) { // Intake
@@ -151,6 +155,7 @@ public class Robot extends LoggedRobot {
     }
 
     robotContainer.shooter.shoot(robotContainer.m_controller.getRightBumperButton());
+    SmartDashboard.putBoolean("Mode", RobotContainer.groundIntake);
     // if (robotContainer.m_controller.getRightBumperButtonPressed())
     // robotContainer.elevator.stop();
     // int t = robotContainer.m_controller.getPOV();

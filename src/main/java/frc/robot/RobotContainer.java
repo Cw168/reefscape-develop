@@ -50,6 +50,7 @@ public class RobotContainer {
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
+  public static boolean groundIntake = true;
 
   public Drive getDrive() {
     return drive;
@@ -158,15 +159,19 @@ public class RobotContainer {
 
     // controller.y().onTrue(new SetWristAndElevator(this, 0));
     // level 1 state, depend on is coral loaded
-    controller.povDown().onTrue(new SetWristAndElevator(this, 1)); // Ground
+    
+    controller.povDown().onTrue(
+            new ConditionalCommand(
+                new SetWristAndElevator(this, 5),
+                new SetWristAndElevator(this, 1),
+                () -> groundIntake)); // Ground intake
     // level 2 state, depend on is coral loaded
-    controller.povLeft().onTrue(new SetWristAndElevator(this, 5)); // Transfer
+    controller.povLeft().onTrue(new SetWristAndElevator(this, 2)); // L1
     // level 3 state, depend on is coral loaded
-    controller.povUp().onTrue(new SetWristAndElevator(this, 2)); // L1
+    controller.povUp().onTrue(new SetWristAndElevator(this, 3)); // L2 and L1 Outtake
     // level 4 state, depend on is coral loaded
-    controller.povRight().onTrue(new SetWristAndElevator(this, 3)); // L2
-    controller.pov(45).onTrue(new SetWristAndElevator(this, 3));
-    controller.pov(45).onTrue(new SetWristAndElevator(this, 3));
+    controller.povRight().onTrue(new SetWristAndElevator(this, 7)); // L2 Outtake
+     
     /*
     controller2.povDown().onTrue(new SetWristAndElevator(this, 1)); // Ground
     // level 2 state, depend on is coral loaded
@@ -185,7 +190,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command autonomous =
-        new SetWristAndElevator(this, 3)
+        new SetWristAndElevator(this, 3).withTimeout(2)
             .andThen(autoChooser.get())
             .andThen(CoralCommands.moveIntake(wrist))
             .andThen(new WaitCommand(1));
