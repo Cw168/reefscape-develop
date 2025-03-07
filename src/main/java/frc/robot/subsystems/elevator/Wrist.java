@@ -32,8 +32,11 @@ import frc.robot.generated.TunerConstants;
 import java.util.function.BooleanSupplier;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
+import frc.robot.RobotContainer;
+import frc.robot.Robot;
 
 public class Wrist extends SubsystemBase {
+  private RobotContainer robotContainer;
 
   // Hardware
   private final TalonFX talon;
@@ -130,9 +133,13 @@ public class Wrist extends SubsystemBase {
     } else {
       if (pivotInputs.currentAngle <= maxAngle + 10 && pivotInputs.currentAngle >= minAngle - 10) {
         talon.set(moveWrist);
-      } else if (pivotInputs.currentAngle >= maxAngle && !robotContainer.m_controller.getXButton() && !robotContainer.m_controller.getYButton()) {
+      } else if (pivotInputs.currentAngle >= maxAngle
+        && !robotContainer.m_controller.getXButton()
+        && !robotContainer.m_controller.getYButton()) {
         talon.set(0.1);
-      } else if (pivotInputs.currentAngle <= minAngle && !robotContainer.m_controller.getXButton() && !robotContainer.m_controller.getYButton()) {
+      } else if (pivotInputs.currentAngle <= minAngle
+          && !robotContainer.m_controller.getXButton()
+          && !robotContainer.m_controller.getYButton()) {
         talon.set(-0.1);
       }
     }

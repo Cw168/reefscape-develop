@@ -11,6 +11,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -159,8 +160,10 @@ public class RobotContainer {
 
     // controller.y().onTrue(new SetWristAndElevator(this, 0));
     // level 1 state, depend on is coral loaded
-    
-    controller.povDown().onTrue(
+
+    controller
+        .povDown()
+        .onTrue(
             new ConditionalCommand(
                 new SetWristAndElevator(this, 5),
                 new SetWristAndElevator(this, 1),
@@ -171,7 +174,7 @@ public class RobotContainer {
     controller.povUp().onTrue(new SetWristAndElevator(this, 3)); // L2 and L1 Outtake
     // level 4 state, depend on is coral loaded
     controller.povRight().onTrue(new SetWristAndElevator(this, 7)); // L2 Outtake
-     
+
     /*
     controller2.povDown().onTrue(new SetWristAndElevator(this, 1)); // Ground
     // level 2 state, depend on is coral loaded
@@ -190,7 +193,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command autonomous =
-        new SetWristAndElevator(this, 3).withTimeout(2)
+        new SetWristAndElevator(this, 3)
+            .withTimeout(2) //Should make code run to next line
             .andThen(autoChooser.get())
             .andThen(CoralCommands.moveIntake(wrist))
             .andThen(new WaitCommand(1));
