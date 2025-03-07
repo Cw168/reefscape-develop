@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.835,
-        "y": 5.0
+        "x": 8.607172131147541,
+        "y": 4.792213114754098
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.000819672131148,
-        "y": 4.420594262295082
+        "x": 9.098274590163934,
+        "y": 4.920081967213115
       },
       "isLocked": false,
       "linkedName": null
@@ -17,11 +17,43 @@
     {
       "anchor": {
         "x": 6.245594262295082,
-        "y": 4.156864754098361
+        "y": 4.025
       },
       "prevControl": {
-        "x": 6.92889344262295,
-        "y": 4.384631147540984
+        "x": 6.984962858606558,
+        "y": 4.303963883196721
+      },
+      "nextControl": {
+        "x": 5.5062256659836075,
+        "y": 3.746036116803279
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.4084016393442615,
+        "y": 4.025
+      },
+      "prevControl": {
+        "x": 7.161925836345005,
+        "y": 3.9831708410809923
+      },
+      "nextControl": {
+        "x": 7.654877442343518,
+        "y": 4.066829158919008
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.245594262295082,
+        "y": 4.025
+      },
+      "prevControl": {
+        "x": 6.269569672131148,
+        "y": 3.7732581967213124
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +66,7 @@
   "eventMarkers": [
     {
       "name": "eject",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.0,
       "endWaypointRelativePos": null,
       "command": null
     }

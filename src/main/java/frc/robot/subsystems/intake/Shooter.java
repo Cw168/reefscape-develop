@@ -61,6 +61,11 @@ public class Shooter extends SubsystemBase {
     }
   }
 
+  public void transferSpeed(double speed) {
+    rightTransfer.set(-speed * 0.3);
+    leftTransfer.set(speed * 0.3);
+  }
+
   public void transfer(boolean moveTransfer) {
     if (moveTransfer) {
       rightTransfer.set(-0.25);
@@ -75,11 +80,11 @@ public class Shooter extends SubsystemBase {
 
   public void intake(double moveTransfer) {
     if (moveTransfer == 1) {
-      rightIntake.set(-1);
-      leftIntake.set(1);
+      rightIntake.set(-0.5);
+      leftIntake.set(0.5);
     } else if (moveTransfer == -1) {
-      rightIntake.set(1);
-      leftIntake.set(-1);
+      rightIntake.set(0.5);
+      leftIntake.set(-0.5);
     } else {
       leftIntake.set(0);
       rightIntake.set(0);

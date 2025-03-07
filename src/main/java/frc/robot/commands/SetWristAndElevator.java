@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.SuperStructureState;
@@ -32,32 +33,39 @@ public class SetWristAndElevator extends Command {
   public void initialize() {
     switch (level) {
       case 1: // Ground
-        RobotContainer.groundIntake = true;
+        RobotContainer.groundIntake = false;
         robot.targetState = SuperStructureState.STATE_L1;
+        SmartDashboard.putString("Elevator", "Ground");
         break;
       case 2: // L1
         RobotContainer.groundIntake = false;
         robot.targetState = SuperStructureState.STATE_L2;
+        SmartDashboard.putString("Elevator", "L1 Coral");
         break;
       case 3: // L2
         RobotContainer.groundIntake = false;
         robot.targetState = SuperStructureState.STATE_L3;
+        SmartDashboard.putString("Elevator", "L2 Coral");
         break;
       case 4: // L3
         RobotContainer.groundIntake = false;
         robot.targetState = SuperStructureState.STATE_L4;
+        SmartDashboard.putString("Elevator", "L2 Alge");
         break;
       case 5: // Transfer
-        RobotContainer.groundIntake = false;
+        RobotContainer.groundIntake = true;
         robot.targetState = SuperStructureState.STATE_TRANSFER;
+        SmartDashboard.putString("Elevator", "Transfer");
         break;
       case 6: // L1 Ball
         RobotContainer.groundIntake = false;
         robot.targetState = SuperStructureState.STATE_L1B;
+        SmartDashboard.putString("Elevator", "L1 Alge");
         break;
       case 7: // L1 Ball
         RobotContainer.groundIntake = false;
         robot.targetState = SuperStructureState.STATE_L2B;
+        SmartDashboard.putString("Elevator", "L2 Alge");
         break;
       default:
         RobotContainer.groundIntake = false;
@@ -82,7 +90,7 @@ public class SetWristAndElevator extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return robot.elevator.isDone().getAsBoolean();
     // return isFinished;
 
   }

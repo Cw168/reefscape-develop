@@ -19,7 +19,7 @@ public class SuperStructureState {
   public static final double L4_HEIGHT = 62; // L3
   public static final double TRANSFER_HEIGHT = 12; // Right //Transfer
   public static final double L1B_HEIGHT = 45; // L1 Outake
-  public static final double L2B_HEIGHT = 60; // L2 Outake
+  public static final double L2B_HEIGHT = 70; // L2 Outake
 
   public static final double L0_ANGLE = -100;
   public static final double L1_ANGLE = -100;

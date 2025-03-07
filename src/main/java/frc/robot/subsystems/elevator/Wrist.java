@@ -27,16 +27,17 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.SuperStructureState;
 import frc.robot.generated.TunerConstants;
 import java.util.function.BooleanSupplier;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
-import frc.robot.RobotContainer;
-import frc.robot.Robot;
 
 public class Wrist extends SubsystemBase {
   private RobotContainer robotContainer;
+  private Robot robot;
 
   // Hardware
   private final TalonFX talon;
@@ -47,8 +48,8 @@ public class Wrist extends SubsystemBase {
   public static final double reduction =
       75; // wrist gearbox gear ration 60.0 * 60.0 * 30.0 / (10.0 * 18.0 * 12.0)
   // horizontal
-  public static final double minAngle = -175;
-  public static final double maxAngle = -80;
+  public static final double minAngle = -180;
+  public static final double maxAngle = -40;
 
   double targetDegrees = SuperStructureState.SOURCE_ANGLE;
 
@@ -131,16 +132,15 @@ public class Wrist extends SubsystemBase {
       talon.set(0);
       talon.stopMotor();
     } else {
-      if (pivotInputs.currentAngle <= maxAngle + 10 && pivotInputs.currentAngle >= minAngle - 10) {
+      if (pivotInputs.currentAngle <= maxAngle + 15 && pivotInputs.currentAngle >= minAngle - 15) {
         talon.set(moveWrist);
-      } else if (pivotInputs.currentAngle >= maxAngle
-        && !robotContainer.m_controller.getXButton()
-        && !robotContainer.m_controller.getYButton()) {
-        talon.set(0.1);
-      } else if (pivotInputs.currentAngle <= minAngle
-          && !robotContainer.m_controller.getXButton()
-          && !robotContainer.m_controller.getYButton()) {
+        SmartDashboard.putNumber("A", 1);
+      } else if (pivotInputs.currentAngle >= maxAngle) {
+        SmartDashboard.putNumber("A", 2);
         talon.set(-0.1);
+      } else if (pivotInputs.currentAngle <= minAngle) {
+        SmartDashboard.putNumber("A", 3);
+        talon.set(0.1);
       }
     }
   }

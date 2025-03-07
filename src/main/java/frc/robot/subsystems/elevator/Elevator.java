@@ -35,7 +35,7 @@ public class Elevator extends SubsystemBase {
       Units.inchesToMeters(2.472433418375167278670100342641) * 100; // inches
   private static final double POS_SWITCH_THRESHOLD = 2;
   public static final double minHeight = 0;
-  public static final double maxHeight = 801.5;
+  public static final double maxHeight = 75;
 
   double targetHeight = SuperStructureState.SOURCE_HEIGHT;
 
@@ -105,6 +105,10 @@ public class Elevator extends SubsystemBase {
     // ParentDevice.optimizeBusUtilizationForAll(talon);
   }
 
+  public void manualMove(double velocity) {
+    talon.set(-velocity);
+  }
+
   public void setVoltage(double voltage) {
     // Set the power to the main motor
     talon.setControl(new VoltageOut(voltage));
@@ -137,6 +141,8 @@ public class Elevator extends SubsystemBase {
     if (DriverStation.isDisabled()) {
       talon.setControl(new NeutralOut());
     }
+
+    // setElevatorHeight(getElevatorHeight());
   }
 
   public void resetPosition() {
@@ -151,6 +157,10 @@ public class Elevator extends SubsystemBase {
   public void setElevatorHeight(double setPointHeight) {
 
     targetHeight = MathUtil.clamp(setPointHeight, minHeight, maxHeight);
+  }
+
+  public double getElevatorHeight() {
+    return inputs.elevatorHeight;
   }
 
   public BooleanSupplier isDone() {

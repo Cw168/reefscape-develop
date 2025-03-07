@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -47,7 +48,8 @@ public class RobotContainer {
   // Controller
   public final XboxController m_controller = new CommandXboxController(0).getHID();
   public final CommandXboxController controller = new CommandXboxController(0);
-  public final CommandXboxController controller2 = new CommandXboxController(1);
+  public final XboxController controller2 = new XboxController(1);
+  public final CommandXboxController c_controller2 = new CommandXboxControlle(1);
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -75,10 +77,13 @@ public class RobotContainer {
             new ModuleIOTalonFX(TunerConstants.FrontRight),
             new ModuleIOTalonFX(TunerConstants.BackLeft),
             new ModuleIOTalonFX(TunerConstants.BackRight));
+    NamedCommands.registerCommand("IntakeAngle", CoralCommands.positionIntake(wrist));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
 
+    autoChooser.addOption(
+        "Drive Wheel Radius Characterization", DriveCommands.wheelRadiusCharacterization(drive));
     // Set up SysId routines
     autoChooser.addOption(
         "Drive Wheel Radius Characterization", DriveCommands.wheelRadiusCharacterization(drive));
@@ -165,8 +170,8 @@ public class RobotContainer {
         .povDown()
         .onTrue(
             new ConditionalCommand(
-                new SetWristAndElevator(this, 5),
                 new SetWristAndElevator(this, 1),
+                new SetWristAndElevator(this, 5),
                 () -> groundIntake)); // Ground intake
     // level 2 state, depend on is coral loaded
     controller.povLeft().onTrue(new SetWristAndElevator(this, 2)); // L1
@@ -175,15 +180,13 @@ public class RobotContainer {
     // level 4 state, depend on is coral loaded
     controller.povRight().onTrue(new SetWristAndElevator(this, 7)); // L2 Outtake
 
-    /*
-    controller2.povDown().onTrue(new SetWristAndElevator(this, 1)); // Ground
+    c_controller2.povDown().onTrue(new SetWristAndElevator(this, 1)); // Ground
     // level 2 state, depend on is coral loaded
-    controller2.povLeft().onTrue(new SetWristAndElevator(this, 5)); // Transfer
+    c_controller2.povLeft().onTrue(new SetWristAndElevator(this, 5)); // Transfer
     // level 3 state, depend on is coral loaded
-    controller2.povUp().onTrue(new SetWristAndElevator(this, 2)); // L1
+    c_controller2.povUp().onTrue(new SetWristAndElevator(this, 2)); // L1
     // level 4 state, depend on is coral loaded
-    controller2.povRight().onTrue(new SetWristAndElevator(this, 3)); // L2
-    */
+    c_controller2.povRight().onTrue(new SetWristAndElevator(this, 3)); // L2
   }
 
   /**
@@ -193,10 +196,13 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command autonomous =
-        new SetWristAndElevator(this, 3)
-            .withTimeout(2) //Should make code run to next line
+        CoralCommands.positionIntake(wrist)
+            .withTimeout(2)
+            .andThen(new SetWristAndElevator(this, 3).withTimeout(2))
+            .andThen(CoralCommands.outake(shooter).withTimeout(1))
+            .andThen(new WaitCommand(1))
             .andThen(autoChooser.get())
-            .andThen(CoralCommands.moveIntake(wrist))
+            .andThen(CoralCommands.moveIntake(wrist).withTimeout(1))
             .andThen(new WaitCommand(1));
     return autonomous;
   }
