@@ -31,6 +31,14 @@ public class CoralCommands {
         shooter);
   }
 
+  public static Command intakeBall(Shooter shooter) {
+    return Commands.run(
+        () -> {
+          shooter.intake(-1);
+        },
+        shooter);
+  }
+
   public static Command positionIntake(Wrist wrist) {
     return Commands.run(
         () -> {

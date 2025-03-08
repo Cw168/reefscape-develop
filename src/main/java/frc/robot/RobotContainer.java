@@ -49,7 +49,7 @@ public class RobotContainer {
   public final XboxController m_controller = new CommandXboxController(0).getHID();
   public final CommandXboxController controller = new CommandXboxController(0);
   public final XboxController controller2 = new XboxController(1);
-  public final CommandXboxController c_controller2 = new CommandXboxControlle(1);
+  public final CommandXboxController c_controller2 = new CommandXboxController(1);
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
