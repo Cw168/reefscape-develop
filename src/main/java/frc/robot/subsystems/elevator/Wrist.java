@@ -160,6 +160,10 @@ public class Wrist extends SubsystemBase {
     }
   }
 
+  public void intakeSpeed(double speed) {
+    wristIntake.set(speed);
+  }
+
   public void setWristAngle(double setPointAngle) {
     targetDegrees = MathUtil.clamp(setPointAngle, minAngle, maxAngle);
   }

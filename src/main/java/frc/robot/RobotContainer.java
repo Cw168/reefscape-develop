@@ -7,13 +7,11 @@
 
 package frc.robot;
 
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -29,6 +27,7 @@ import frc.robot.subsystems.drive.ModuleIOTalonFX;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.Wrist;
 import frc.robot.subsystems.intake.Shooter;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -56,6 +55,7 @@ public class RobotContainer {
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
   public static boolean groundIntake = true;
+  ShuffleboardTab autoSystem;
 
   public Drive getDrive() {
     return drive;
@@ -79,8 +79,7 @@ public class RobotContainer {
             new ModuleIOTalonFX(TunerConstants.FrontRight),
             new ModuleIOTalonFX(TunerConstants.BackLeft),
             new ModuleIOTalonFX(TunerConstants.BackRight));
-    NamedCommands.registerCommand("IntakeAngle", CoralCommands.positionIntake(wrist));
-
+    ShuffleboardTab tab = Shuffleboard.getTab("Auto");
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
 
@@ -101,7 +100,7 @@ public class RobotContainer {
         "Drive SysId (Dynamic Forward)", drive.sysIdDynamic(SysIdRoutine.Direction.kForward));
     autoChooser.addOption(
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
-
+    autoSystem = Shuffleboard.getTab("Auto");
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -197,17 +196,18 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    autoSystem.add("A", autoChooser.get());
     Command autonomous =
-        CoralCommands.positionIntake(wrist)
-            .withTimeout(2)
+             CoralCommands.positionIntake(wrist)
+            .andThen(new WaitCommand(1))
             .andThen(CoralCommands.intakeBall(shooter).withTimeout(1))
             .andThen(new WaitCommand(1))
-            .andThen(new SetWristAndElevator(this, 3).withTimeout(2))
-            .andThen(CoralCommands.outake(shooter).withTimeout(1))
-            .andThen(new WaitCommand(1))
+            //.andThen(new SetWristAndElevator(this, 3).withTimeout(2))
             .andThen(autoChooser.get())
+            .andThen(CoralCommands.outake(shooter).withTimeout(1))
             .andThen(CoralCommands.moveIntake(wrist).withTimeout(1))
             .andThen(new WaitCommand(1));
+
     return autonomous;
   }
 }

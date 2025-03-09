@@ -18,7 +18,7 @@ public class CoralCommands {
   public static Command moveIntake(Wrist wrist) {
     return Commands.run(
         () -> {
-          wrist.moveIntake(1);
+          wrist.intakeSpeed(0.3);
         },
         wrist);
   }
