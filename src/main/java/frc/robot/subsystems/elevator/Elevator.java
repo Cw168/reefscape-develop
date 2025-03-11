@@ -35,7 +35,7 @@ public class Elevator extends SubsystemBase {
       Units.inchesToMeters(2.472433418375167278670100342641) * 100; // inches
   private static final double POS_SWITCH_THRESHOLD = 2;
   public static final double minHeight = 0;
-  public static final double maxHeight = 75;
+  public static final double maxHeight = 80;
 
   double targetHeight = SuperStructureState.SOURCE_HEIGHT;
 
@@ -88,8 +88,8 @@ public class Elevator extends SubsystemBase {
     armTalonConfig.Slot0.kI = 0;
     armTalonConfig.Slot0.kD = 0;
     armTalonConfig.Slot0.kS = 0;
-    armTalonConfig.Slot0.kV = 8; // 10; // 8.3; // move velocity
-    armTalonConfig.Slot0.kA = 0.2; // 0.2; // move accerleration
+    armTalonConfig.Slot0.kV = 30; // 10; // 8.3; // move velocity
+    armTalonConfig.Slot0.kA = 15; // 0.2; // move accerleration
 
     armTalonConfig.MotionMagic.MotionMagicCruiseVelocity = 50; // 1.0; // 0.5;
     armTalonConfig.MotionMagic.MotionMagicAcceleration = 2; // 2; // 1.0;

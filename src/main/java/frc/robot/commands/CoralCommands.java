@@ -10,39 +10,28 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.elevator.Wrist;
-import frc.robot.subsystems.intake.Shooter;
 
 public class CoralCommands {
-  private CoralCommands() {}
-
-  public static Command moveIntake(Wrist wrist) {
-    return Commands.run(
+  public static Command intake(Wrist wrist) {
+    return Commands.runOnce(
         () -> {
-          wrist.intakeSpeed(0.3);
+          wrist.intakeSpeed(0.25);
         },
         wrist);
   }
 
-  public static Command outake(Shooter shooter) {
-    return Commands.run(
+  public static Command outake(Wrist wrist) {
+    return Commands.runOnce(
         () -> {
-          shooter.intake(1);
+          wrist.intakeSpeed(-0.25);
         },
-        shooter);
+        wrist);
   }
 
-  public static Command intakeBall(Shooter shooter) {
-    return Commands.run(
+  public static Command stop(Wrist wrist) {
+    return Commands.runOnce(
         () -> {
-          shooter.intake(-1);
-        },
-        shooter);
-  }
-
-  public static Command positionIntake(Wrist wrist) {
-    return Commands.run(
-        () -> {
-          wrist.setWristAngle(-100);
+          wrist.intakeSpeed(0);
         },
         wrist);
   }

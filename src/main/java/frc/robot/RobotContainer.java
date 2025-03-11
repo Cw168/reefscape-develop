@@ -8,17 +8,20 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.commands.AlgeaCommands;
 import frc.robot.commands.CoralCommands;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.ElevatorWristCommands;
 import frc.robot.commands.SetWristAndElevator;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.drive.Drive;
@@ -101,6 +104,18 @@ public class RobotContainer {
     autoChooser.addOption(
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
     autoSystem = Shuffleboard.getTab("Auto");
+
+    NamedCommands.registerCommand("L0", new SetWristAndElevator(this, 0));
+    NamedCommands.registerCommand("L1", new SetWristAndElevator(this, 1));
+    NamedCommands.registerCommand("L2", new SetWristAndElevator(this, 2));
+    NamedCommands.registerCommand("L3", new SetWristAndElevator(this, 3));
+    NamedCommands.registerCommand("L4", new SetWristAndElevator(this, 4));
+    NamedCommands.registerCommand("L5", new SetWristAndElevator(this, 5));
+    NamedCommands.registerCommand("L6", new SetWristAndElevator(this, 6));
+    NamedCommands.registerCommand("L7", new SetWristAndElevator(this, 7));
+
+    NamedCommands.registerCommand("IntakeAlgea", AlgeaCommands.intake(shooter));
+    NamedCommands.registerCommand("OutakeAlgea", AlgeaCommands.outake(shooter));
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -121,14 +136,15 @@ public class RobotContainer {
             () -> -controller.getRightX()));
 
     // Lock to 0° when A button is held
-    // controller
-    //     .x()
-    //     .whileTrue(
-    //         DriveCommands.joystickDriveAtAngle(
-    //             drive,
-    //             () -> -controller.getLeftY(),
-    //             () -> -controller.getLeftX(),
-    //             () -> new Rotation2d()));
+    // used to align for shooting
+    c_controller2
+        .x()
+        .whileTrue(
+            DriveCommands.joystickDriveAtAngle(
+                drive,
+                () -> -controller.getLeftY(),
+                () -> -controller.getLeftX(),
+                () -> new Rotation2d()));
 
     // Point wheels in x formation to stop
     //  controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
@@ -167,27 +183,55 @@ public class RobotContainer {
     // controller.y().onTrue(new SetWristAndElevator(this, 0));
     // level 1 state, depend on is coral loaded
 
-    controller
-        .povDown()
-        .onTrue(
-            new ConditionalCommand(
-                new SetWristAndElevator(this, 1),
-                new SetWristAndElevator(this, 5),
-                () -> groundIntake)); // Ground intake
-    // level 2 state, depend on is coral loaded
-    controller.povLeft().onTrue(new SetWristAndElevator(this, 2)); // L1
-    // level 3 state, depend on is coral loaded
-    controller.povUp().onTrue(new SetWristAndElevator(this, 3)); // L2 and L1 Outtake
-    // level 4 state, depend on is coral loaded
-    controller.povRight().onTrue(new SetWristAndElevator(this, 7)); // L2 Outtake
+    // intake
+    controller.leftTrigger().onTrue(AlgeaCommands.intake(shooter));
+    controller.leftTrigger().onFalse(AlgeaCommands.stop(shooter));
+    controller.leftBumper().onTrue(AlgeaCommands.outake(shooter));
+    controller.leftBumper().onFalse(AlgeaCommands.stop(shooter));
 
-    c_controller2.povDown().onTrue(new SetWristAndElevator(this, 1)); // Ground
-    // level 2 state, depend on is coral loaded
-    c_controller2.povLeft().onTrue(new SetWristAndElevator(this, 5)); // Transfer
-    // level 3 state, depend on is coral loaded
-    c_controller2.povUp().onTrue(new SetWristAndElevator(this, 2)); // L1
-    // level 4 state, depend on is coral loaded
-    c_controller2.povRight().onTrue(new SetWristAndElevator(this, 3)); // L2
+    // transfer
+    controller
+        .axisMagnitudeGreaterThan(1, 0.1)
+        .whileTrue(AlgeaCommands.Transfer(shooter, controller.getRightTriggerAxis()));
+    controller.axisMagnitudeGreaterThan(1, 0.1).onFalse(AlgeaCommands.Transfer(shooter, 0));
+
+    // shoot
+    controller.rightBumper().onTrue(AlgeaCommands.shoot(shooter, true));
+    controller.rightBumper().onFalse(AlgeaCommands.shoot(shooter, false));
+
+    // coral intake
+    controller.a().onTrue(CoralCommands.intake(wrist));
+    controller.a().onFalse(CoralCommands.stop(wrist));
+    controller.b().onTrue(CoralCommands.outake(wrist));
+    controller.b().onFalse(CoralCommands.stop(wrist));
+
+    // elevator and wrist
+    controller.povDown().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 0));
+    controller
+        .povDownLeft()
+        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1));
+    controller.povLeft().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2));
+    controller.povUpLeft().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 3));
+    controller.povUp().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));
+    controller.povUpRight().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 5));
+    controller.povRight().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 6));
+    controller
+        .povDownRight()
+        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 7));
+
+    c_controller2
+        .axisMagnitudeGreaterThan(1, 0.1)
+        .whileTrue(ElevatorWristCommands.moveElevator(elevator, c_controller2.getLeftY()));
+    c_controller2
+        .axisMagnitudeGreaterThan(1, 0.1)
+        .onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
+
+    c_controller2
+        .axisMagnitudeGreaterThan(3, 0.1)
+        .whileTrue(ElevatorWristCommands.moveWrist(wrist, c_controller2.getRightY()));
+    c_controller2
+        .axisMagnitudeGreaterThan(3, 0.1)
+        .onFalse(ElevatorWristCommands.moveWrist(wrist, 0));
   }
 
   /**
@@ -198,14 +242,14 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     autoSystem.add("A", autoChooser.get());
     Command autonomous =
-             CoralCommands.positionIntake(wrist)
+        AlgeaCommands.positionIntake(wrist)
             .andThen(new WaitCommand(1))
-            .andThen(CoralCommands.intakeBall(shooter).withTimeout(1))
+            .andThen(AlgeaCommands.intake(shooter).withTimeout(1))
             .andThen(new WaitCommand(1))
-            //.andThen(new SetWristAndElevator(this, 3).withTimeout(2))
+            // .andThen(new SetWristAndElevator(this, 3).withTimeout(2))
             .andThen(autoChooser.get())
-            .andThen(CoralCommands.outake(shooter).withTimeout(1))
-            .andThen(CoralCommands.moveIntake(wrist).withTimeout(1))
+            .andThen(AlgeaCommands.outake(shooter).withTimeout(1))
+            .andThen(CoralCommands.intake(wrist).withTimeout(1))
             .andThen(new WaitCommand(1));
 
     return autonomous;
