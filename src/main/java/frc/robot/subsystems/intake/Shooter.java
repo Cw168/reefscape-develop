@@ -16,8 +16,7 @@ import frc.robot.generated.TunerConstants;
 import org.littletonrobotics.junction.AutoLog;
 
 public class Shooter extends SubsystemBase {
-  private final SparkMax leftTransfer;
-  private final SparkMax rightTransfer;
+  private final TalonFX transferMoter;
 
   private final SparkMax leftIntake;
   private final SparkMax rightIntake;
@@ -34,8 +33,7 @@ public class Shooter extends SubsystemBase {
   private final ShooterIOInputsAutoLogged inputs = new ShooterIOInputsAutoLogged();
 
   public Shooter() {
-    leftTransfer = new SparkMax(4, MotorType.kBrushless);
-    rightTransfer = new SparkMax(2, MotorType.kBrushless);
+    transferMoter = new TalonFX(0, TunerConstants.kCANBus);
 
     leftIntake = new SparkMax(5, MotorType.kBrushless);
     rightIntake = new SparkMax(3, MotorType.kBrushless);
@@ -62,19 +60,15 @@ public class Shooter extends SubsystemBase {
   }
 
   public void transferSpeed(double speed) {
-    rightTransfer.set(-speed * 0.3);
-    leftTransfer.set(speed * 0.3);
+    transferMoter.set(-speed * 0.3);
   }
 
   public void transfer(boolean moveTransfer) {
     if (moveTransfer) {
-      rightTransfer.set(-0.25);
-      leftTransfer.set(0.25);
+      transferMoter.set(-0.25);
     } else {
-      leftTransfer.set(0);
-      rightTransfer.set(0);
-      leftTransfer.stopMotor();
-      rightTransfer.stopMotor();
+      transferMoter.set(0);
+      transferMoter.stopMotor();
     }
   }
 

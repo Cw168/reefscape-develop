@@ -17,7 +17,6 @@ package frc.robot.subsystems.elevator;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -25,45 +24,25 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.SuperStructureState;
 import frc.robot.generated.TunerConstants;
-import java.util.function.BooleanSupplier;
-import org.littletonrobotics.junction.AutoLog;
-import org.littletonrobotics.junction.Logger;
 
-public class Wrist extends SubsystemBase {
-
+public class Funnel extends SubsystemBase {
   // Hardware
   private final TalonFX talon;
-  private final TalonFX wristIntake;
   // private final DutyCycleEncoder wristEncoder;
   MotionMagicVoltage pMmPos = new MotionMagicVoltage(0);
 
   public static final double reduction =
       75; // wrist gearbox gear ration 60.0 * 60.0 * 30.0 / (10.0 * 18.0 * 12.0)
   // horizontal
-  public static final double minAngle = -180;
-  public static final double maxAngle = -40;
+  public static final double minAngle = 80;
+  public static final double maxAngle = 40;
 
-  double targetDegrees = SuperStructureState.SOURCE_ANGLE;
+  double targetDegrees = minAngle;
 
-  @AutoLog
-  public static class WristIOInputs {
-    public boolean motorConnected = true;
-    public boolean encoderConnected = false;
-    public double targetAngle = 0.0;
-    public double currentAngle = 0.0;
-  }
-
-  public final WristIOInputsAutoLogged pivotInputs = new WristIOInputsAutoLogged();
-
-  public Wrist() {
+  public Funnel() {
     talon = new TalonFX(16, TunerConstants.kCANBus);
-    wristIntake = new TalonFX(17, TunerConstants.kCANBus);
-    // DigitalInput input = new DigitalInput(9);
-    // wristEncoder = new DutyCycleEncoder(input);
 
     // Configure motor
     TalonFXConfiguration armTalonConfig = new TalonFXConfiguration();
@@ -95,49 +74,14 @@ public class Wrist extends SubsystemBase {
 
     // Set up armTalonConfig
     talon.getConfigurator().apply(armTalonConfig, 0.25);
-    wristIntake.getConfigurator().apply(armTalonConfig, 0.25);
 
     // ParentDevice.optimizeBusUtilizationForAll(talon, wristEncoder);
   }
 
-  public boolean isSafe() {
-    return pivotInputs.currentAngle < 80;
-  }
-
   public void periodic() {
-    pivotInputs.encoderConnected = false;
-    pivotInputs.motorConnected = talon.isConnected();
-    pivotInputs.targetAngle = targetDegrees;
-    pivotInputs.currentAngle = getAngle();
-    Logger.processInputs("Wrist", pivotInputs);
     talon.setControl(pMmPos.withPosition(Units.degreesToRotations(targetDegrees)));
     if (DriverStation.isDisabled()) {
       talon.setControl(new NeutralOut());
-    }
-    SmartDashboard.putNumber("TarAngle", targetDegrees);
-    SmartDashboard.putNumber("CurAngle", pivotInputs.currentAngle);
-  }
-
-  public void setVoltage(double voltage) {
-    // Set the power to the main motor
-    talon.setControl(new VoltageOut(voltage));
-  }
-
-  public void moveWrist(double moveWrist) {
-    if (moveWrist == 0) {
-      talon.set(0);
-      talon.stopMotor();
-    } else {
-      if (pivotInputs.currentAngle <= maxAngle + 15 && pivotInputs.currentAngle >= minAngle - 15) {
-        talon.set(moveWrist);
-        SmartDashboard.putNumber("A", 1);
-      } else if (pivotInputs.currentAngle >= maxAngle) {
-        SmartDashboard.putNumber("A", 2);
-        talon.set(-0.1);
-      } else if (pivotInputs.currentAngle <= minAngle) {
-        SmartDashboard.putNumber("A", 3);
-        talon.set(0.1);
-      }
     }
   }
 
@@ -145,27 +89,7 @@ public class Wrist extends SubsystemBase {
     return talon.getPosition().getValueAsDouble() * 360;
   }
 
-  public void moveIntake(double moveIntake) {
-    if (moveIntake == 1) {
-      wristIntake.set(1);
-    } else if (moveIntake == -1) {
-      wristIntake.set(-1);
-    } else {
-      wristIntake.set(0);
-      wristIntake.stopMotor();
-    }
-  }
-
-  public void intakeSpeed(double speed) {
-    wristIntake.set(speed);
-  }
-
   public void setWristAngle(double setPointAngle) {
     targetDegrees = MathUtil.clamp(setPointAngle, minAngle, maxAngle);
-  }
-
-  public BooleanSupplier isDone() {
-    boolean flag = Math.abs(targetDegrees - pivotInputs.currentAngle) < 3;
-    return () -> flag;
   }
 }

@@ -19,15 +19,17 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.AlgeaCommands;
-import frc.robot.commands.CoralCommands;
+import frc.robot.commands.IntakeCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorWristCommands;
+import frc.robot.commands.FunnelCommands;
 import frc.robot.commands.SetWristAndElevator;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIOTalonFX;
 import frc.robot.subsystems.elevator.Elevator;
+import frc.robot.subsystems.elevator.Funnel;
 import frc.robot.subsystems.elevator.Wrist;
 import frc.robot.subsystems.intake.Shooter;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
@@ -46,6 +48,7 @@ public class RobotContainer {
   public final Shooter shooter;
   public final Wrist wrist;
   public final Elevator elevator;
+  public final Funnel funnel;
   public SuperStructureState currentState = SuperStructureState.STATE_SOURCE;
   public SuperStructureState targetState = SuperStructureState.STATE_SOURCE;
 
@@ -70,6 +73,7 @@ public class RobotContainer {
     shooter = new Shooter();
     wrist = new Wrist();
     elevator = new Elevator();
+    funnel = new Funnel();
     // Real robot, instantiate hardware IO implementations
     // vision = new LimeLight();
     // wrist = new Wrist();
@@ -191,19 +195,19 @@ public class RobotContainer {
 
     // transfer
     controller
-        .axisMagnitudeGreaterThan(1, 0.1)
+        .axisMagnitudeGreaterThan(3, 0.1)
         .whileTrue(AlgeaCommands.Transfer(shooter, controller.getRightTriggerAxis()));
-    controller.axisMagnitudeGreaterThan(1, 0.1).onFalse(AlgeaCommands.Transfer(shooter, 0));
+    controller.axisMagnitudeGreaterThan(3, 0.1).onFalse(AlgeaCommands.Transfer(shooter, 0));
 
     // shoot
     controller.rightBumper().onTrue(AlgeaCommands.shoot(shooter, true));
     controller.rightBumper().onFalse(AlgeaCommands.shoot(shooter, false));
 
     // coral intake
-    controller.a().onTrue(CoralCommands.intake(wrist));
-    controller.a().onFalse(CoralCommands.stop(wrist));
-    controller.b().onTrue(CoralCommands.outake(wrist));
-    controller.b().onFalse(CoralCommands.stop(wrist));
+    controller.a().onTrue(IntakeCommands.intake(wrist));
+    controller.a().onFalse(IntakeCommands.stop(wrist));
+    controller.b().onTrue(IntakeCommands.outake(wrist));
+    controller.b().onFalse(IntakeCommands.stop(wrist));
 
     // elevator and wrist
     controller.povDown().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 0));
@@ -219,6 +223,7 @@ public class RobotContainer {
         .povDownRight()
         .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 7));
 
+    // manuel elevator
     c_controller2
         .axisMagnitudeGreaterThan(1, 0.1)
         .whileTrue(ElevatorWristCommands.moveElevator(elevator, c_controller2.getLeftY()));
@@ -226,12 +231,16 @@ public class RobotContainer {
         .axisMagnitudeGreaterThan(1, 0.1)
         .onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
 
+    // manuel wrist
     c_controller2
         .axisMagnitudeGreaterThan(3, 0.1)
         .whileTrue(ElevatorWristCommands.moveWrist(wrist, c_controller2.getRightY()));
     c_controller2
         .axisMagnitudeGreaterThan(3, 0.1)
         .onFalse(ElevatorWristCommands.moveWrist(wrist, 0));
+
+    // funnel
+    c_controller2.rightTrigger().onTrue(FunnelCommands.SetStage(funnel));
   }
 
   /**
@@ -249,7 +258,7 @@ public class RobotContainer {
             // .andThen(new SetWristAndElevator(this, 3).withTimeout(2))
             .andThen(autoChooser.get())
             .andThen(AlgeaCommands.outake(shooter).withTimeout(1))
-            .andThen(CoralCommands.intake(wrist).withTimeout(1))
+            .andThen(IntakeCommands.intake(wrist).withTimeout(1))
             .andThen(new WaitCommand(1));
 
     return autonomous;
