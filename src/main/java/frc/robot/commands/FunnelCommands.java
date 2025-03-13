@@ -12,17 +12,19 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.elevator.Funnel;
 
 public class FunnelCommands {
-  static boolean up = false;
 
-  public static Command SetStage(Funnel funnel) {
-    up = !up;
+  public static Command FunnelUp(Funnel funnel) {
     return Commands.runOnce(
         () -> {
-          if (up) {
-            funnel.setWristAngle(70);
-          } else {
-            funnel.setWristAngle(20);
-          }
+          funnel.setWristAngle(80);
+        },
+        funnel);
+  }
+
+  public static Command FunnelDown(Funnel funnel) {
+    return Commands.runOnce(
+        () -> {
+          funnel.setWristAngle(20);
         },
         funnel);
   }

@@ -61,7 +61,7 @@ public class Wrist extends SubsystemBase {
 
   public Wrist() {
     talon = new TalonFX(16, TunerConstants.kCANBus);
-    wristIntake = new TalonFX(17, TunerConstants.kCANBus);
+    wristIntake = new TalonFX(19, TunerConstants.kCANBus);
     // DigitalInput input = new DigitalInput(9);
     // wristEncoder = new DutyCycleEncoder(input);
 

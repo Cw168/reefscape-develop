@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.elevator.Wrist;
 
-public class IntakeCommands 
-{
+public class IntakeCommands {
   public static Command intake(Wrist wrist) {
     return Commands.runOnce(
         () -> {

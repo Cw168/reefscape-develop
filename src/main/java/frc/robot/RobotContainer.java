@@ -19,10 +19,10 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.AlgeaCommands;
-import frc.robot.commands.IntakeCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorWristCommands;
 import frc.robot.commands.FunnelCommands;
+import frc.robot.commands.IntakeCommands;
 import frc.robot.commands.SetWristAndElevator;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.drive.Drive;
@@ -118,8 +118,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("L6", new SetWristAndElevator(this, 6));
     NamedCommands.registerCommand("L7", new SetWristAndElevator(this, 7));
 
-    NamedCommands.registerCommand("IntakeAlgea", AlgeaCommands.intake(shooter));
-    NamedCommands.registerCommand("OutakeAlgea", AlgeaCommands.outake(shooter));
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -188,22 +186,17 @@ public class RobotContainer {
     // level 1 state, depend on is coral loaded
 
     // intake
-    controller.leftTrigger().onTrue(AlgeaCommands.intake(shooter));
-    controller.leftTrigger().onFalse(AlgeaCommands.stop(shooter));
-    controller.leftBumper().onTrue(AlgeaCommands.outake(shooter));
-    controller.leftBumper().onFalse(AlgeaCommands.stop(shooter));
 
     // transfer
-    controller
-        .axisMagnitudeGreaterThan(3, 0.1)
-        .whileTrue(AlgeaCommands.Transfer(shooter, controller.getRightTriggerAxis()));
+    controller.rightTrigger().onTrue(AlgeaCommands.Transfer(shooter, 0.1));
+    controller.rightTrigger().onFalse(AlgeaCommands.Transfer(shooter, 0));
     controller.axisMagnitudeGreaterThan(3, 0.1).onFalse(AlgeaCommands.Transfer(shooter, 0));
 
     // shoot
     controller.rightBumper().onTrue(AlgeaCommands.shoot(shooter, true));
     controller.rightBumper().onFalse(AlgeaCommands.shoot(shooter, false));
 
-    // coral intake
+    // intake
     controller.a().onTrue(IntakeCommands.intake(wrist));
     controller.a().onFalse(IntakeCommands.stop(wrist));
     controller.b().onTrue(IntakeCommands.outake(wrist));
@@ -240,7 +233,8 @@ public class RobotContainer {
         .onFalse(ElevatorWristCommands.moveWrist(wrist, 0));
 
     // funnel
-    c_controller2.rightTrigger().onTrue(FunnelCommands.SetStage(funnel));
+    controller.leftBumper().onTrue(FunnelCommands.FunnelUp(funnel));
+    controller.leftTrigger().onTrue(FunnelCommands.FunnelDown(funnel));
   }
 
   /**
@@ -253,11 +247,9 @@ public class RobotContainer {
     Command autonomous =
         AlgeaCommands.positionIntake(wrist)
             .andThen(new WaitCommand(1))
-            .andThen(AlgeaCommands.intake(shooter).withTimeout(1))
             .andThen(new WaitCommand(1))
             // .andThen(new SetWristAndElevator(this, 3).withTimeout(2))
             .andThen(autoChooser.get())
-            .andThen(AlgeaCommands.outake(shooter).withTimeout(1))
             .andThen(IntakeCommands.intake(wrist).withTimeout(1))
             .andThen(new WaitCommand(1));
 

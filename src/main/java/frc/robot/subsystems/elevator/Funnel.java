@@ -7,13 +7,6 @@
 
 package frc.robot.subsystems.elevator;
 
-// Copyright (c) 2025 FRC 9785
-// https://github.com/tonytigr/reefscape
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file at
-// the root directory of this project.
-
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
@@ -26,6 +19,8 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.generated.TunerConstants;
+import org.littletonrobotics.junction.AutoLog;
+import org.littletonrobotics.junction.Logger;
 
 public class Funnel extends SubsystemBase {
   // Hardware
@@ -36,13 +31,21 @@ public class Funnel extends SubsystemBase {
   public static final double reduction =
       75; // wrist gearbox gear ration 60.0 * 60.0 * 30.0 / (10.0 * 18.0 * 12.0)
   // horizontal
-  public static final double minAngle = 80;
-  public static final double maxAngle = 40;
+  public static final double minAngle = 20;
+  public static final double maxAngle = 80;
 
   double targetDegrees = minAngle;
 
+  @AutoLog
+  public static class FunnelIOInputs {
+    public double targetAngle = 0.0;
+    public double currentAngle = 0.0;
+  }
+
+  public final FunnelIOInputsAutoLogged pivotInputs = new FunnelIOInputsAutoLogged();
+
   public Funnel() {
-    talon = new TalonFX(16, TunerConstants.kCANBus);
+    talon = new TalonFX(20, TunerConstants.kCANBus);
 
     // Configure motor
     TalonFXConfiguration armTalonConfig = new TalonFXConfiguration();
@@ -58,7 +61,7 @@ public class Funnel extends SubsystemBase {
     // Move the arm
     armTalonConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
     armTalonConfig.Slot0.kG = 0.35; // 0.35; // to hold the arm weight
-    armTalonConfig.Slot0.kP = 40; // 60; // 100; // adjust PID
+    armTalonConfig.Slot0.kP = 10; // 60; // 100; // adjust PID
     armTalonConfig.Slot0.kI = 0;
     armTalonConfig.Slot0.kD = 0.01;
     armTalonConfig.Slot0.kS = 0;
@@ -78,7 +81,11 @@ public class Funnel extends SubsystemBase {
     // ParentDevice.optimizeBusUtilizationForAll(talon, wristEncoder);
   }
 
+  @Override
   public void periodic() {
+    pivotInputs.targetAngle = targetDegrees;
+    pivotInputs.currentAngle = getAngle();
+    Logger.processInputs("Funnel", pivotInputs);
     talon.setControl(pMmPos.withPosition(Units.degreesToRotations(targetDegrees)));
     if (DriverStation.isDisabled()) {
       talon.setControl(new NeutralOut());

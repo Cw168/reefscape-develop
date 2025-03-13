@@ -15,30 +15,6 @@ import frc.robot.subsystems.intake.Shooter;
 public class AlgeaCommands {
   private AlgeaCommands() {}
 
-  public static Command intake(Shooter shooter) {
-    return Commands.runOnce(
-        () -> {
-          shooter.intake(-1);
-        },
-        shooter);
-  }
-
-  public static Command outake(Shooter shooter) {
-    return Commands.runOnce(
-        () -> {
-          shooter.intake(1);
-        },
-        shooter);
-  }
-
-  public static Command stop(Shooter shooter) {
-    return Commands.runOnce(
-        () -> {
-          shooter.intake(0);
-        },
-        shooter);
-  }
-
   public static Command Transfer(Shooter shooter, double transferSpd) {
     return Commands.runOnce(
         () -> {
