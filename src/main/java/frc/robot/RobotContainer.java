@@ -225,12 +225,11 @@ public class RobotContainer {
         .onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
 
     // manuel wrist
-    c_controller2
-        .axisMagnitudeGreaterThan(3, 0.1)
-        .whileTrue(ElevatorWristCommands.moveWrist(wrist, c_controller2.getRightY()));
-    c_controller2
-        .axisMagnitudeGreaterThan(3, 0.1)
-        .onFalse(ElevatorWristCommands.moveWrist(wrist, 0));
+    c_controller2.rightTrigger().onTrue(ElevatorWristCommands.moveWrist(wrist, 1));
+    c_controller2.rightTrigger().onFalse(ElevatorWristCommands.stopWrist(wrist));
+
+    c_controller2.rightBumper().onTrue(ElevatorWristCommands.moveWrist(wrist, -1));
+    c_controller2.rightBumper().onFalse(ElevatorWristCommands.stopWrist(wrist));
 
     // funnel
     controller.leftBumper().onTrue(FunnelCommands.FunnelUp(funnel));

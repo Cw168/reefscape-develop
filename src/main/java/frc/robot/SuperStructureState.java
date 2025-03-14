@@ -21,11 +21,11 @@ public class SuperStructureState {
   public static final double L1B_HEIGHT = 45; // L1 Outake
   public static final double L2B_HEIGHT = 70; // L2 Outake
 
-  public static final double L0_ANGLE = -100;
-  public static final double L1_ANGLE = -100;
-  public static final double L2_ANGLE = -100;
-  public static final double L3_ANGLE = -100;
-  public static final double L4_ANGLE = -80;
+  public static final double L0_ANGLE = 0;
+  public static final double L1_ANGLE = 0;
+  public static final double L2_ANGLE = -20;
+  public static final double L3_ANGLE = -40;
+  public static final double L4_ANGLE = -100;
   public static final double TRANSFER_ANGLE = -100;
   public static final double L1B_ANGLE = -100;
   public static final double L2B_ANGLE = -100;

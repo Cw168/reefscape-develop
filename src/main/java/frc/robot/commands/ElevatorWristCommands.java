@@ -60,7 +60,6 @@ public class ElevatorWristCommands {
             }
           }
           elevator.setElevatorHeight(elevatorHeight);
-          wrist.setWristAngle(wristAngle);
         },
         elevator,
         wrist);
@@ -79,6 +78,14 @@ public class ElevatorWristCommands {
     return Commands.runOnce(
         () -> {
           wrist.moveWrist(spd * 0.25);
+        },
+        wrist);
+  }
+
+  public static Command stopWrist(Wrist wrist) {
+    return Commands.runOnce(
+        () -> {
+          wrist.moveWrist(0);
           wrist.setWristAngle(wrist.getAngle() + 1);
         },
         wrist);

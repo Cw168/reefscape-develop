@@ -45,7 +45,7 @@ public class Wrist extends SubsystemBase {
       75; // wrist gearbox gear ration 60.0 * 60.0 * 30.0 / (10.0 * 18.0 * 12.0)
   // horizontal
   public static final double minAngle = -180;
-  public static final double maxAngle = -40;
+  public static final double maxAngle = 0;
 
   double targetDegrees = SuperStructureState.SOURCE_ANGLE;
 
