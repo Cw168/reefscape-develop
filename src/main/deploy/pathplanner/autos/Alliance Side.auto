@@ -13,44 +13,8 @@
                 "data": {
                   "pathName": "Blue Start - Coral 1"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "L2"
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeL2"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.75
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Outake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.25
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeHuman"
           }
         },
         {
@@ -62,38 +26,8 @@
                 "data": {
                   "pathName": "Blue Coral 1 - Human"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "LH"
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeL3"
           }
         },
         {
@@ -105,32 +39,8 @@
                 "data": {
                   "pathName": "Blue Human - Coral 2"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "L3"
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Outake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         },
         {
@@ -142,26 +52,8 @@
                 "data": {
                   "pathName": "Blue Coral 2 - Algae"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "L3"
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeHuman"
           }
         },
         {
@@ -173,38 +65,8 @@
                 "data": {
                   "pathName": "Blue Coral 2 - Human"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "LH"
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeL3"
           }
         },
         {
@@ -216,26 +78,8 @@
                 "data": {
                   "pathName": "Blue Human - Coral 3"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "L3"
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Outake"
           }
         }
       ]
