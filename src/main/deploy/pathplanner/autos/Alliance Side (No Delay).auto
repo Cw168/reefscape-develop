@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeL2"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -21,12 +27,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeL2"
           }
         },
         {
