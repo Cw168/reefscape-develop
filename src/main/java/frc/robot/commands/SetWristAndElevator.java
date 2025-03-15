@@ -55,8 +55,8 @@ public class SetWristAndElevator extends Command {
         break;
       case 5: // Transfer
         RobotContainer.groundIntake = true;
-        robot.targetState = SuperStructureState.STATE_TRANSFER;
-        SmartDashboard.putString("Elevator", "Transfer");
+        robot.targetState = SuperStructureState.STATE_HUMAN;
+        SmartDashboard.putString("Elevator", "Human");
         break;
       case 6: // L1 Ball
         RobotContainer.groundIntake = false;

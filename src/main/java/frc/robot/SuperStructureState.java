@@ -21,7 +21,7 @@ public class SuperStructureState {
   public static final double L2_HEIGHT = 38; // L2 Algea
   public static final double L3_HEIGHT = 43.5; // L3 Coral
   public static final double L4_HEIGHT = 55; // L3 Algea
-  public static final double TRANSFER_HEIGHT = 12; // Right //Transfer
+  public static final double HUMAN_HEIGHT = 5; // Right //Transfer
   public static final double L1B_HEIGHT = 45; // L1 Outake
   public static final double L2B_HEIGHT = 70; // L2 Outake
 
@@ -32,7 +32,7 @@ public class SuperStructureState {
   public static final double L2_ANGLE = 10;
   public static final double L3_ANGLE = -30;
   public static final double L4_ANGLE = 10;
-  public static final double TRANSFER_ANGLE = -100;
+  public static final double HUMAN_ANGLE = -100;
   public static final double L1B_ANGLE = -100;
   public static final double L2B_ANGLE = -100;
 
@@ -55,8 +55,8 @@ public class SuperStructureState {
   public static SuperStructureState STATE_L2 = new SuperStructureState("CL2", L2_HEIGHT, L2_ANGLE);
   public static SuperStructureState STATE_L3 = new SuperStructureState("CL3", L3_HEIGHT, L3_ANGLE);
   public static SuperStructureState STATE_L4 = new SuperStructureState("CL4", L4_HEIGHT, L4_ANGLE);
-  public static SuperStructureState STATE_TRANSFER =
-      new SuperStructureState("CLT", TRANSFER_HEIGHT, TRANSFER_ANGLE);
+  public static SuperStructureState STATE_HUMAN =
+      new SuperStructureState("CLT", HUMAN_HEIGHT, HUMAN_ANGLE);
   public static SuperStructureState STATE_L1B =
       new SuperStructureState("CL1B", L1B_HEIGHT, L1B_ANGLE);
   public static SuperStructureState STATE_L2B =

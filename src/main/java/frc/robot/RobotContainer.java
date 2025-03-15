@@ -74,17 +74,15 @@ public class RobotContainer {
     wrist = new Wrist();
     elevator = new Elevator();
     funnel = new Funnel();
-    NamedCommands.registerCommand("L0", new SetWristAndElevator(this, 0));
-    NamedCommands.registerCommand("L1", new SetWristAndElevator(this, 1));
-    NamedCommands.registerCommand("L2", new SetWristAndElevator(this, 2));
-    NamedCommands.registerCommand("L3", new SetWristAndElevator(this, 3));
-    NamedCommands.registerCommand("L4", new SetWristAndElevator(this, 4));
-    NamedCommands.registerCommand("L5", new SetWristAndElevator(this, 5));
-    NamedCommands.registerCommand("L6", new SetWristAndElevator(this, 6));
-    NamedCommands.registerCommand("L7", new SetWristAndElevator(this, 7));
+    NamedCommands.registerCommand("L2", new SetWristAndElevator(this, 1));
+    NamedCommands.registerCommand("L3", new SetWristAndElevator(this, 2));
+    NamedCommands.registerCommand("LH", new SetWristAndElevator(this, 5));
     NamedCommands.registerCommand("Intake", IntakeCommands.intake(wrist));
     NamedCommands.registerCommand("StopIntake", IntakeCommands.stop(wrist));
     NamedCommands.registerCommand("Outake", IntakeCommands.outake(wrist));
+    NamedCommands.registerCommand("IntakeL2", ElevatorWristCommands.setWristLevel(wrist, 0));
+    NamedCommands.registerCommand("IntakeL3", ElevatorWristCommands.setWristLevel(wrist, 1));
+    NamedCommands.registerCommand("IntakeHuman", ElevatorWristCommands.setWristLevel(wrist, 2));
 
     // Real robot, instantiate hardware IO implementations
     // vision = new LimeLight();

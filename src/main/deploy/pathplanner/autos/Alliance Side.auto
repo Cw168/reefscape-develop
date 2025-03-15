@@ -17,7 +17,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "L1"
+                  "name": "L2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeL2"
                 }
               }
             ]
@@ -62,6 +68,12 @@
                 "data": {
                   "name": "LH"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeHuman"
+                }
               }
             ]
           }
@@ -79,13 +91,19 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Human - Algae"
+                  "pathName": "Blue Human - Coral 2"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "L2"
+                  "name": "L3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeL3"
                 }
               }
             ]
@@ -94,7 +112,19 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Outake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
@@ -104,22 +134,22 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Algae - Coral 2"
+                  "pathName": "Blue Coral 2 - Algae"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "L2"
+                  "name": "L3"
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Outake"
+            "waitTime": 1.0
           }
         },
         {
@@ -142,6 +172,12 @@
                 "type": "named",
                 "data": {
                   "name": "LH"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeHuman"
                 }
               }
             ]
@@ -166,7 +202,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "L2"
+                  "name": "L3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeL3"
                 }
               }
             ]
