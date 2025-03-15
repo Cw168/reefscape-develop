@@ -90,6 +90,24 @@ public class ElevatorWristCommands {
         wrist);
   }
 
+  public static Command setWristLevel(Wrist wrist, int level) {
+    return Commands.runOnce(
+        () -> {
+          switch (level) {
+            case 0:
+              wrist.setWristAngle(60);
+              break;
+            case 1:
+              wrist.setWristAngle(90);
+              break;
+            case 2:
+              wrist.setWristAngle(120);
+              break;
+          }
+        },
+        wrist);
+  }
+
   public static Command stopWrist(Wrist wrist) {
     return Commands.runOnce(
         () -> {

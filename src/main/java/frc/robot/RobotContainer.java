@@ -195,7 +195,6 @@ public class RobotContainer {
     // transfer
     controller.rightBumper().onTrue(AlgeaCommands.Transfer(shooter, 0.1));
     controller.rightBumper().onFalse(AlgeaCommands.Transfer(shooter, 0));
-    controller.axisMagnitudeGreaterThan(3, 0.1).onFalse(AlgeaCommands.Transfer(shooter, 0));
 
     // shoot
     controller.rightTrigger().onTrue(AlgeaCommands.shoot(shooter, true));
@@ -208,19 +207,20 @@ public class RobotContainer {
     controller.b().onFalse(IntakeCommands.stop(wrist));
 
     // elevator and wrist
-    controller.povDown().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 0));
-    controller.povLeft().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1));
-    controller.povUp().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2));
-    // controller.povRight().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist,
-    // 3));
-    controller
-        .povDownRight()
-        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 7));
+    c_controller2.povDown().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 0));
+    c_controller2.povLeft().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1));
+    c_controller2.povUp().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2));
+    c_controller2
+        .povRight()
+        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 3));
+    c_controller2
+        .leftBumper()
+        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));
 
     // manuel elevator
-    c_controller2.x().onTrue(ElevatorWristCommands.moveElevator(elevator, 1));
+    c_controller2.x().onTrue(ElevatorWristCommands.moveElevator(elevator, 0.5));
     c_controller2.x().onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
-    c_controller2.a().onTrue(ElevatorWristCommands.moveElevator(elevator, -1));
+    c_controller2.a().onTrue(ElevatorWristCommands.moveElevator(elevator, -0.5));
     c_controller2.a().onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
 
     // manuel wrist
@@ -233,6 +233,11 @@ public class RobotContainer {
     // funnel
     controller.leftBumper().onTrue(FunnelCommands.FunnelUp(funnel));
     controller.leftTrigger().onTrue(FunnelCommands.FunnelDown(funnel));
+
+    // wrist
+    controller.povDown().onTrue(ElevatorWristCommands.setWristLevel(wrist, 0));
+    controller.povLeft().onTrue(ElevatorWristCommands.setWristLevel(wrist, 1));
+    controller.povUp().onTrue(ElevatorWristCommands.setWristLevel(wrist, 2));
   }
 
   /**

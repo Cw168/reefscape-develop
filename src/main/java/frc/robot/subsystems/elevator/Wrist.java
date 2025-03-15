@@ -43,8 +43,8 @@ public class Wrist extends SubsystemBase {
   public static final double reduction =
       75; // wrist gearbox gear ration 60.0 * 60.0 * 30.0 / (10.0 * 18.0 * 12.0)
   // horizontal
-  public static final double minAngle = -90;
-  public static final double maxAngle = 80;
+  public static final double minAngle = 0;
+  public static final double maxAngle = 170;
 
   double targetDegrees = minAngle;
   private boolean manuelMoving = false;
@@ -55,6 +55,7 @@ public class Wrist extends SubsystemBase {
     public boolean encoderConnected = false;
     public double targetAngle = 0.0;
     public double currentAngle = 0.0;
+    public boolean manuelMoving = false;
   }
 
   public final WristIOInputsAutoLogged pivotInputs = new WristIOInputsAutoLogged();
@@ -79,9 +80,9 @@ public class Wrist extends SubsystemBase {
     // Move the arm
     armTalonConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
     armTalonConfig.Slot0.kG = 0.1; // 0.35; // to hold the arm weight
-    armTalonConfig.Slot0.kP = 0; // 60; // 100; // adjust PID
+    armTalonConfig.Slot0.kP = 50; // 60; // 100; // adjust PID
     armTalonConfig.Slot0.kI = 0;
-    armTalonConfig.Slot0.kD = 0;
+    armTalonConfig.Slot0.kD = 1;
     armTalonConfig.Slot0.kS = 0;
     armTalonConfig.Slot0.kV = 5; // 8.3; // move velocity
     armTalonConfig.Slot0.kA = 0.15; // 0.2; // move accerleration
@@ -96,7 +97,6 @@ public class Wrist extends SubsystemBase {
     // Set up armTalonConfig
     talon.getConfigurator().apply(armTalonConfig, 0.25);
     wristIntake.getConfigurator().apply(armTalonConfig, 0.25);
-    talon.setPosition(-0.25);
     // ParentDevice.optimizeBusUtilizationForAll(talon, wristEncoder);
   }
 
@@ -106,13 +106,14 @@ public class Wrist extends SubsystemBase {
 
   @Override
   public void periodic() {
+    pivotInputs.manuelMoving = manuelMoving;
     pivotInputs.encoderConnected = false;
     pivotInputs.motorConnected = talon.isConnected();
     pivotInputs.targetAngle = targetDegrees;
     pivotInputs.currentAngle = getAngle();
     Logger.processInputs("Wrist", pivotInputs);
     if (!manuelMoving)
-      talon.setControl(pMmPos.withPosition(Units.degreesToRotations(getAngle() + 1)));
+      talon.setControl(pMmPos.withPosition(Units.degreesToRotations(targetDegrees + 1)));
     if (DriverStation.isDisabled()) {
       talon.setControl(new NeutralOut());
     }
