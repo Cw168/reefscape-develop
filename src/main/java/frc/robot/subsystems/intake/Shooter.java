@@ -12,7 +12,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.generated.ShooterConstants;
 import frc.robot.generated.TunerConstants;
 import org.littletonrobotics.junction.AutoLog;
 
@@ -53,8 +52,8 @@ public class Shooter extends SubsystemBase {
 
   public void shoot(boolean moveShooter) {
     if (moveShooter) {
-      rightShooter.setVoltage(-ShooterConstants.shooterVoltage);
-      leftShooter.setVoltage(ShooterConstants.shooterVoltage);
+      rightShooter.set(-1);
+      leftShooter.set(1);
     } else {
 
       rightShooter.setVoltage(0);

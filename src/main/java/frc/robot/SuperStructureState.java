@@ -7,15 +7,19 @@
 
 package frc.robot;
 
+// L1 13
+// L2 42.5
+
+// Algea L1
 public class SuperStructureState {
 
   public static final double SOURCE_HEIGHT = 0.25;
   public static final double SOURCE_ANGLE = 50;
 
   public static final double L0_HEIGHT = 0;
-  public static final double L1_HEIGHT = 5.5; // Ground intake
-  public static final double L2_HEIGHT = 18; // L1
-  public static final double L3_HEIGHT = 45; // L2
+  public static final double L1_HEIGHT = 13; // Ground intake
+  public static final double L2_HEIGHT = 42.5; // L1
+  public static final double L3_HEIGHT = 60; // L2
   public static final double L4_HEIGHT = 62; // L3
   public static final double TRANSFER_HEIGHT = 12; // Right //Transfer
   public static final double L1B_HEIGHT = 45; // L1 Outake

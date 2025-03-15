@@ -8,7 +8,6 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -23,7 +22,6 @@ import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorWristCommands;
 import frc.robot.commands.FunnelCommands;
 import frc.robot.commands.IntakeCommands;
-import frc.robot.commands.SetWristAndElevator;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
@@ -69,16 +67,19 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
     // intake = new AlgeaIntake();
     shooter = new Shooter();
     wrist = new Wrist();
     elevator = new Elevator();
     funnel = new Funnel();
+
     // Real robot, instantiate hardware IO implementations
     // vision = new LimeLight();
     // wrist = new Wrist();
     // elevator = new Elevator();
     // intake = new Intake();
+
     drive =
         new Drive(
             new GyroIOPigeon2(),
@@ -86,6 +87,7 @@ public class RobotContainer {
             new ModuleIOTalonFX(TunerConstants.FrontRight),
             new ModuleIOTalonFX(TunerConstants.BackLeft),
             new ModuleIOTalonFX(TunerConstants.BackRight));
+
     ShuffleboardTab tab = Shuffleboard.getTab("Auto");
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -108,15 +110,6 @@ public class RobotContainer {
     autoChooser.addOption(
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
     autoSystem = Shuffleboard.getTab("Auto");
-
-    NamedCommands.registerCommand("L0", new SetWristAndElevator(this, 0));
-    NamedCommands.registerCommand("L1", new SetWristAndElevator(this, 1));
-    NamedCommands.registerCommand("L2", new SetWristAndElevator(this, 2));
-    NamedCommands.registerCommand("L3", new SetWristAndElevator(this, 3));
-    NamedCommands.registerCommand("L4", new SetWristAndElevator(this, 4));
-    NamedCommands.registerCommand("L5", new SetWristAndElevator(this, 5));
-    NamedCommands.registerCommand("L6", new SetWristAndElevator(this, 6));
-    NamedCommands.registerCommand("L7", new SetWristAndElevator(this, 7));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -188,13 +181,13 @@ public class RobotContainer {
     // intake
 
     // transfer
-    controller.rightTrigger().onTrue(AlgeaCommands.Transfer(shooter, 0.1));
-    controller.rightTrigger().onFalse(AlgeaCommands.Transfer(shooter, 0));
+    controller.rightBumper().onTrue(AlgeaCommands.Transfer(shooter, 0.1));
+    controller.rightBumper().onFalse(AlgeaCommands.Transfer(shooter, 0));
     controller.axisMagnitudeGreaterThan(3, 0.1).onFalse(AlgeaCommands.Transfer(shooter, 0));
 
     // shoot
-    controller.rightBumper().onTrue(AlgeaCommands.shoot(shooter, true));
-    controller.rightBumper().onFalse(AlgeaCommands.shoot(shooter, false));
+    controller.rightTrigger().onTrue(AlgeaCommands.shoot(shooter, true));
+    controller.rightTrigger().onFalse(AlgeaCommands.shoot(shooter, false));
 
     // intake
     controller.a().onTrue(IntakeCommands.intake(wrist));
@@ -204,29 +197,23 @@ public class RobotContainer {
 
     // elevator and wrist
     controller.povDown().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 0));
-    controller
-        .povDownLeft()
-        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1));
-    controller.povLeft().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2));
-    controller.povUpLeft().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 3));
-    controller.povUp().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));
-    controller.povUpRight().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 5));
-    controller.povRight().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 6));
+    controller.povLeft().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1));
+    controller.povUp().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2));
+    // controller.povRight().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist,
+    // 3));
     controller
         .povDownRight()
         .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 7));
 
     // manuel elevator
-    c_controller2
-        .axisMagnitudeGreaterThan(1, 0.1)
-        .whileTrue(ElevatorWristCommands.moveElevator(elevator, c_controller2.getLeftY()));
-    c_controller2
-        .axisMagnitudeGreaterThan(1, 0.1)
-        .onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
+    c_controller2.x().onTrue(ElevatorWristCommands.moveElevator(elevator, 1));
+    c_controller2.x().onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
+    c_controller2.a().onTrue(ElevatorWristCommands.moveElevator(elevator, -1));
+    c_controller2.a().onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
 
     // manuel wrist
-    c_controller2.rightTrigger().onTrue(ElevatorWristCommands.moveWrist(wrist, 1));
-    c_controller2.rightTrigger().onFalse(ElevatorWristCommands.stopWrist(wrist));
+    c_controller2.y().onTrue(ElevatorWristCommands.moveWrist(wrist, 1));
+    c_controller2.y().onFalse(ElevatorWristCommands.stopWrist(wrist));
 
     c_controller2.rightBumper().onTrue(ElevatorWristCommands.moveWrist(wrist, -1));
     c_controller2.rightBumper().onFalse(ElevatorWristCommands.stopWrist(wrist));

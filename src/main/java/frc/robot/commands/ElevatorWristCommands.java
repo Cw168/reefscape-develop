@@ -69,13 +69,21 @@ public class ElevatorWristCommands {
     return Commands.runOnce(
         () -> {
           elevator.manualMove(spd * 0.25);
+        },
+        elevator);
+  }
+
+  public static Command stopElevator(Elevator elevator) {
+    return Commands.runOnce(
+        () -> {
+          elevator.manualMove(0);
           elevator.setElevatorHeight(elevator.getElevatorHeight() + 1);
         },
         elevator);
   }
 
   public static Command moveWrist(Wrist wrist, double spd) {
-    return Commands.runOnce(
+    return Commands.run(
         () -> {
           wrist.moveWrist(spd * 0.25);
         },

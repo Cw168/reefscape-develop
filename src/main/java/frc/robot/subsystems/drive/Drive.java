@@ -11,6 +11,7 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.CANBus;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -42,7 +43,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.Constants.Mode;
+import frc.robot.RobotContainer;
+import frc.robot.commands.IntakeCommands;
+import frc.robot.commands.SetWristAndElevator;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.elevator.Wrist;
 import frc.robot.util.LocalADStarAK;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -117,6 +122,16 @@ public class Drive extends SubsystemBase {
 
     // Start odometry thread
     PhoenixOdometryThread.getInstance().start();
+
+    NamedCommands.registerCommand("L0", new SetWristAndElevator(new RobotContainer(), 0));
+    NamedCommands.registerCommand("L1", new SetWristAndElevator(new RobotContainer(), 1));
+    NamedCommands.registerCommand("L2", new SetWristAndElevator(new RobotContainer(), 2));
+    NamedCommands.registerCommand("L3", new SetWristAndElevator(new RobotContainer(), 3));
+    NamedCommands.registerCommand("L4", new SetWristAndElevator(new RobotContainer(), 4));
+    NamedCommands.registerCommand("L5", new SetWristAndElevator(new RobotContainer(), 5));
+    NamedCommands.registerCommand("L6", new SetWristAndElevator(new RobotContainer(), 6));
+    NamedCommands.registerCommand("L7", new SetWristAndElevator(new RobotContainer(), 7));
+    NamedCommands.registerCommand("Intake", IntakeCommands.intake(new Wrist()));
 
     // Configure AutoBuilder for PathPlanner
     AutoBuilder.configure(

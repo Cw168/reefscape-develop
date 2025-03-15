@@ -54,6 +54,7 @@ public class Elevator extends SubsystemBase {
     public double elevatorHeight = 0;
   }
 
+  private boolean manuelMoving = false;
   private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
   public Elevator() {
@@ -65,7 +66,7 @@ public class Elevator extends SubsystemBase {
     TalonFXConfiguration armTalonConfig = new TalonFXConfiguration();
     armTalonConfig.CurrentLimits.SupplyCurrentLimit = 50.0;
     armTalonConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-    armTalonConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    armTalonConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     armTalonConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     armTalonConfig.Feedback.RotorToSensorRatio = 1; // ELEVATOR_GEAR_REDUCTION
     armTalonConfig.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_REDUCTION;
@@ -106,6 +107,8 @@ public class Elevator extends SubsystemBase {
   }
 
   public void manualMove(double velocity) {
+    if (velocity != 0) manuelMoving = true;
+    else manuelMoving = false;
     talon.set(-velocity);
   }
 
@@ -135,7 +138,8 @@ public class Elevator extends SubsystemBase {
     //   }
     // } else {
     //
-    talon.setControl(pMmPos.withPosition(targetHeight / ELEVATOR_SPROCKET_PERIMETER));
+    if (!manuelMoving)
+      talon.setControl(pMmPos.withPosition(targetHeight / ELEVATOR_SPROCKET_PERIMETER));
     // }
 
     if (DriverStation.isDisabled()) {
