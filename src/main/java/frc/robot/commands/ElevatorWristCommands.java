@@ -43,8 +43,8 @@ public class ElevatorWristCommands {
               wristAngle = SuperStructureState.L4_ANGLE;
             }
             case 5 -> {
-              elevatorHeight = SuperStructureState.TRANSFER_HEIGHT;
-              wristAngle = SuperStructureState.TRANSFER_ANGLE;
+              elevatorHeight = SuperStructureState.HUMAN_HEIGHT;
+              wristAngle = SuperStructureState.HUMAN_ANGLE;
             }
             case 6 -> {
               elevatorHeight = SuperStructureState.L1B_HEIGHT;
@@ -55,8 +55,8 @@ public class ElevatorWristCommands {
               wristAngle = SuperStructureState.L2B_ANGLE;
             }
             case 8 -> {
-              elevatorHeight = SuperStructureState.TRANSFER_HEIGHT;
-              wristAngle = SuperStructureState.TRANSFER_ANGLE;
+              elevatorHeight = SuperStructureState.HUMAN_HEIGHT;
+              wristAngle = SuperStructureState.HUMAN_ANGLE;
             }
           }
           elevator.setElevatorHeight(elevatorHeight);

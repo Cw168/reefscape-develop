@@ -11,51 +11,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "setL2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "eject"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "setSource"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "middle22"
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "middle23"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "setL3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "eject"
           }
         }
       ]

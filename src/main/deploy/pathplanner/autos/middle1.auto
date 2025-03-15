@@ -9,18 +9,6 @@
           "data": {
             "pathName": "middle"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "setL2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "eject"
-          }
         }
       ]
     }

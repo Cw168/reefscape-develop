@@ -9,12 +9,6 @@
           "data": {
             "pathName": "left"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
         }
       ]
     }

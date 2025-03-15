@@ -19,14 +19,14 @@
                 "data": {
                   "name": "L2"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeL2"
-                }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeL2"
           }
         },
         {
@@ -48,6 +48,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeHuman"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -60,19 +66,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "LH"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeHuman"
                 }
               }
             ]
@@ -81,7 +75,25 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeL3"
           }
         },
         {
@@ -98,12 +110,6 @@
                 "type": "named",
                 "data": {
                   "name": "L3"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeL3"
                 }
               }
             ]
@@ -153,6 +159,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeHuman"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -165,19 +177,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "LH"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeHuman"
                 }
               }
             ]
@@ -186,7 +186,25 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeL3"
           }
         },
         {
@@ -203,12 +221,6 @@
                 "type": "named",
                 "data": {
                   "name": "L3"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeL3"
                 }
               }
             ]
