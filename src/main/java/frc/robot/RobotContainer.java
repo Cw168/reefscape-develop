@@ -8,13 +8,13 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.AlgeaCommands;
@@ -22,6 +22,7 @@ import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorWristCommands;
 import frc.robot.commands.FunnelCommands;
 import frc.robot.commands.IntakeCommands;
+import frc.robot.commands.SetWristAndElevator;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
@@ -73,6 +74,17 @@ public class RobotContainer {
     wrist = new Wrist();
     elevator = new Elevator();
     funnel = new Funnel();
+    NamedCommands.registerCommand("L0", new SetWristAndElevator(this, 0));
+    NamedCommands.registerCommand("L1", new SetWristAndElevator(this, 1));
+    NamedCommands.registerCommand("L2", new SetWristAndElevator(this, 2));
+    NamedCommands.registerCommand("L3", new SetWristAndElevator(this, 3));
+    NamedCommands.registerCommand("L4", new SetWristAndElevator(this, 4));
+    NamedCommands.registerCommand("L5", new SetWristAndElevator(this, 5));
+    NamedCommands.registerCommand("L6", new SetWristAndElevator(this, 6));
+    NamedCommands.registerCommand("L7", new SetWristAndElevator(this, 7));
+    NamedCommands.registerCommand("Intake", IntakeCommands.intake(wrist));
+    NamedCommands.registerCommand("StopIntake", IntakeCommands.stop(wrist));
+    NamedCommands.registerCommand("Outake", IntakeCommands.outake(wrist));
 
     // Real robot, instantiate hardware IO implementations
     // vision = new LimeLight();
@@ -230,14 +242,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     autoSystem.add("A", autoChooser.get());
-    Command autonomous =
-        AlgeaCommands.positionIntake(wrist)
-            .andThen(new WaitCommand(1))
-            .andThen(new WaitCommand(1))
-            // .andThen(new SetWristAndElevator(this, 3).withTimeout(2))
-            .andThen(autoChooser.get())
-            .andThen(IntakeCommands.intake(wrist).withTimeout(1))
-            .andThen(new WaitCommand(1));
+    Command autonomous = autoChooser.get();
 
     return autonomous;
   }
