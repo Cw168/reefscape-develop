@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "middle21"
+            "pathName": "New New Path"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "middle22"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "middle23"
+            "pathName": "Copy of New New Path"
           }
         }
       ]

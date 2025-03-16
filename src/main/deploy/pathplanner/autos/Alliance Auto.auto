@@ -32,7 +32,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Intake"
+            "name": "Outake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
           }
         },
         {
@@ -52,7 +58,13 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Outake"
+                        "name": "L0"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake"
                       }
                     }
                   ]
@@ -70,7 +82,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Outake"
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
@@ -108,7 +126,19 @@
         {
           "type": "named",
           "data": {
-            "name": "Intake"
+            "name": "Outake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue Coral 2 - Algae"
           }
         }
       ]

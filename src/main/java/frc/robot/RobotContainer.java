@@ -77,6 +77,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("L2", new SetWristAndElevator(this, 1));
     NamedCommands.registerCommand("L3", new SetWristAndElevator(this, 2));
     NamedCommands.registerCommand("LH", new SetWristAndElevator(this, 5));
+    NamedCommands.registerCommand("L0", new SetWristAndElevator(this, 0));
     NamedCommands.registerCommand("Intake", IntakeCommands.intake(wrist));
     NamedCommands.registerCommand("StopIntake", IntakeCommands.stop(wrist));
     NamedCommands.registerCommand("Outake", IntakeCommands.outake(wrist));
@@ -209,12 +210,12 @@ public class RobotContainer {
     c_controller2.povDown().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 0));
     c_controller2.povLeft().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1));
     c_controller2.povUp().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2));
-    c_controller2
+    /*c_controller2
         .povRight()
         .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 3));
     c_controller2
         .leftBumper()
-        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));
+        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));*/
 
     // manuel elevator
     c_controller2.x().onTrue(ElevatorWristCommands.moveElevator(elevator, 0.5));
@@ -234,9 +235,9 @@ public class RobotContainer {
     controller.leftTrigger().onTrue(FunnelCommands.FunnelDown(funnel));
 
     // wrist
-    controller.povDown().onTrue(ElevatorWristCommands.setWristLevel(wrist, 0));
-    controller.povLeft().onTrue(ElevatorWristCommands.setWristLevel(wrist, 1));
-    controller.povUp().onTrue(ElevatorWristCommands.setWristLevel(wrist, 2));
+    controller.povDown().onTrue(ElevatorWristCommands.setWristLevel(wrist, 0).alongWith(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 8)));
+    controller.povLeft().onTrue(ElevatorWristCommands.setWristLevel(wrist, 1).alongWith(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1)));
+    controller.povUp().onTrue(ElevatorWristCommands.setWristLevel(wrist, 2).alongWith(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2)));
   }
 
   /**
