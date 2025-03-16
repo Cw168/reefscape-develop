@@ -193,7 +193,7 @@ public class RobotContainer {
     // intake
 
     // transfer
-    controller.rightBumper().onTrue(AlgeaCommands.Transfer(shooter, 0.1));
+    controller.rightBumper().onTrue(AlgeaCommands.Transfer(shooter, 0.5));
     controller.rightBumper().onFalse(AlgeaCommands.Transfer(shooter, 0));
 
     // shoot
@@ -235,9 +235,21 @@ public class RobotContainer {
     controller.leftTrigger().onTrue(FunnelCommands.FunnelDown(funnel));
 
     // wrist
-    controller.povDown().onTrue(ElevatorWristCommands.setWristLevel(wrist, 0).alongWith(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 8)));
-    controller.povLeft().onTrue(ElevatorWristCommands.setWristLevel(wrist, 1).alongWith(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1)));
-    controller.povUp().onTrue(ElevatorWristCommands.setWristLevel(wrist, 2).alongWith(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2)));
+    controller
+        .povDown()
+        .onTrue(
+            ElevatorWristCommands.setWristLevel(wrist, 0)
+                .andThen(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 0)));
+    controller
+        .povLeft()
+        .onTrue(
+            ElevatorWristCommands.setWristLevel(wrist, 1)
+                .andThen(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1)));
+    controller
+        .povUp()
+        .onTrue(
+            ElevatorWristCommands.setWristLevel(wrist, 2)
+                .andThen(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2)));
   }
 
   /**
