@@ -83,6 +83,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("IntakeL2", ElevatorWristCommands.setWristLevel(wrist, 0));
     NamedCommands.registerCommand("IntakeL3", ElevatorWristCommands.setWristLevel(wrist, 1));
     NamedCommands.registerCommand("IntakeHuman", ElevatorWristCommands.setWristLevel(wrist, 2));
+    NamedCommands.registerCommand("IntakeAlgae", ElevatorWristCommands.setWristLevel(wrist, 3));
 
     // Real robot, instantiate hardware IO implementations
     // vision = new LimeLight();

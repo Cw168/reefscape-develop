@@ -98,10 +98,13 @@ public class ElevatorWristCommands {
               wrist.setWristAngle(60);
               break;
             case 1:
-              wrist.setWristAngle(90);
+              wrist.setWristAngle(85`);
               break;
             case 2:
-              wrist.setWristAngle(120);
+              wrist.setWristAngle(140);
+              break;
+            case 3:
+              wrist.setWristAngle(110);
               break;
           }
         },

@@ -18,7 +18,7 @@ public class SuperStructureState {
 
   public static final double L0_HEIGHT = 0;
   public static final double L1_HEIGHT = 16; // L2 Coral
-  public static final double L2_HEIGHT = 38; // L2 Algea
+  public static final double L2_HEIGHT = 40; // L2 Algea
   public static final double L3_HEIGHT = 43.5; // L3 Coral
   public static final double L4_HEIGHT = 55; // L3 Algea
   public static final double HUMAN_HEIGHT = 5; // Right //Transfer
