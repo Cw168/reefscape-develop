@@ -18,12 +18,12 @@ public class SuperStructureState {
 
   public static final double L0_HEIGHT = 0;
   public static final double L1_HEIGHT = 16; // L2 Coral
-  public static final double L2_HEIGHT = 40; // L2 Algea
-  public static final double L3_HEIGHT = 50; // L3 Coral
-  public static final double L4_HEIGHT = 55; // L3 Algea
-  public static final double HUMAN_HEIGHT = 0; // Right //Transfer
-  public static final double L1B_HEIGHT = 45; // L1 Outake
-  public static final double L2B_HEIGHT = 70; // L2 Outake
+  public static final double L2_HEIGHT = 42; // L2 Algea
+  public static final double L3_HEIGHT = 0; // L3 Coral
+  public static final double L4_HEIGHT = 0; // L3 Algea
+  public static final double HUMAN_HEIGHT = 3; // Right //Transfer
+  public static final double L1B_HEIGHT = 30; // L1 Outake
+  public static final double L2B_HEIGHT = 52; // L2 Outake
 
   // intake 35
   //

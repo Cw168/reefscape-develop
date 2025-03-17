@@ -9,7 +9,6 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -76,15 +75,18 @@ public class RobotContainer {
     funnel = new Funnel();
     NamedCommands.registerCommand("L2", new SetWristAndElevator(this, 1));
     NamedCommands.registerCommand("L3", new SetWristAndElevator(this, 2));
-    NamedCommands.registerCommand("LH", new SetWristAndElevator(this, 5));
+    NamedCommands.registerCommand("LH", new SetWristAndElevator(this, 8));
     NamedCommands.registerCommand("L0", new SetWristAndElevator(this, 0));
+    NamedCommands.registerCommand("L2A", new SetWristAndElevator(this, 60));
+    NamedCommands.registerCommand("L3A", new SetWristAndElevator(this, 7));
     NamedCommands.registerCommand("Intake", IntakeCommands.intake(wrist));
     NamedCommands.registerCommand("StopIntake", IntakeCommands.stop(wrist));
     NamedCommands.registerCommand("Outake", IntakeCommands.outake(wrist));
-    NamedCommands.registerCommand("IntakeL2", ElevatorWristCommands.setWristLevel(wrist, 0));
-    NamedCommands.registerCommand("IntakeL3", ElevatorWristCommands.setWristLevel(wrist, 1));
-    NamedCommands.registerCommand("IntakeHuman", ElevatorWristCommands.setWristLevel(wrist, 2));
-    NamedCommands.registerCommand("IntakeAlgae", ElevatorWristCommands.setWristLevel(wrist, 3));
+    NamedCommands.registerCommand("IntakeL2", ElevatorWristCommands.setWristLevel(wrist, 1));
+    NamedCommands.registerCommand("IntakeL3", ElevatorWristCommands.setWristLevel(wrist, 2));
+    NamedCommands.registerCommand("IntakeHuman", ElevatorWristCommands.setWristLevel(wrist, 3));
+    NamedCommands.registerCommand("IntakeAlgae", ElevatorWristCommands.setWristLevel(wrist, 4));
+    NamedCommands.registerCommand("Flywheel", AlgeaCommands.shoot(shooter, ));
 
     // Real robot, instantiate hardware IO implementations
     // vision = new LimeLight();
@@ -141,17 +143,17 @@ public class RobotContainer {
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(),
             () -> -controller.getRightX()));
-
+    // c_controller2.x;
     // Lock to 0° when A button is held
     // used to align for shooting
-    c_controller2
-        .x()
-        .whileTrue(
-            DriveCommands.joystickDriveAtAngle(
-                drive,
-                () -> -controller.getLeftY(),
-                () -> -controller.getLeftX(),
-                () -> new Rotation2d()));
+    /*c_controller2
+    .x()
+    .whileTrue(
+        DriveCommands.joystickDriveAtAngle(
+            drive,
+            () -> -controller.getLeftY(),
+            () -> -controller.getLeftX(),
+            () -> new Rotation2d()));*/
 
     // Point wheels in x formation to stop
     //  controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
@@ -199,13 +201,13 @@ public class RobotContainer {
     // shoot
     controller.rightTrigger().onTrue(AlgeaCommands.shoot(shooter, true));
     controller.rightTrigger().onFalse(AlgeaCommands.shoot(shooter, false));
-
+    // controller.y().onTrue(Drive.stopWithX());
     // intake
-    controller.a().onTrue(IntakeCommands.intake(wrist));
-    controller.a().onFalse(IntakeCommands.stop(wrist));
-    controller.b().onTrue(IntakeCommands.outake(wrist));
-    controller.b().onFalse(IntakeCommands.stop(wrist));
-
+    controller.leftBumper().onTrue(IntakeCommands.intake(wrist));
+    controller.leftBumper().onFalse(IntakeCommands.stop(wrist));
+    controller.leftTrigger().onTrue(IntakeCommands.outake(wrist));
+    controller.leftTrigger().onFalse(IntakeCommands.stop(wrist));
+    /*
     // elevator and wrist
     c_controller2.povDown().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 0));
     c_controller2.povLeft().onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 1));
@@ -215,7 +217,7 @@ public class RobotContainer {
         .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 3));
     c_controller2
         .leftBumper()
-        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));*/
+        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));
 
     // manuel elevator
     c_controller2.x().onTrue(ElevatorWristCommands.moveElevator(elevator, 0.5));
@@ -228,7 +230,7 @@ public class RobotContainer {
     c_controller2.y().onFalse(ElevatorWristCommands.stopWrist(wrist));
 
     c_controller2.rightBumper().onTrue(ElevatorWristCommands.moveWrist(wrist, -1));
-    c_controller2.rightBumper().onFalse(ElevatorWristCommands.stopWrist(wrist));
+    c_controller2.rightBumper().onFalse(ElevatorWristCommands.stopWrist(wrist));*/
 
     // funnel
     controller.leftBumper().onTrue(FunnelCommands.FunnelUp(funnel));
@@ -250,6 +252,24 @@ public class RobotContainer {
         .onTrue(
             ElevatorWristCommands.setWristLevel(wrist, 2)
                 .andThen(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 2)));
+    controller
+        .povRight()
+        .onTrue(
+            ElevatorWristCommands.setWristLevel(wrist, 3)
+                .andThen(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 8)));
+
+    c_controller2
+        .povDown()
+        .onTrue(
+            ElevatorWristCommands.setWristLevel(wrist, 4)
+                .andThen(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 6)));
+
+    c_controller2
+        .povUp()
+        .onTrue(
+            ElevatorWristCommands.setWristLevel(wrist, 4)
+                .andThen(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 7)));
+    // ElevatorWristCommands.c_controller2.getRightY();
   }
 
   /**

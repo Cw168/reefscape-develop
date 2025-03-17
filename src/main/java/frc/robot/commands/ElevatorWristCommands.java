@@ -95,16 +95,19 @@ public class ElevatorWristCommands {
         () -> {
           switch (level) {
             case 0:
-              wrist.setWristAngle(150); //
+              wrist.setWristAngle(145); // Ground Intake
               break;
             case 1:
-              wrist.setWristAngle(175); //
+              wrist.setWristAngle(170); // L2
               break;
             case 2:
-              wrist.setWristAngle(230); //
+              wrist.setWristAngle(170); // L3
               break;
             case 3:
-              wrist.setWristAngle(200); //
+              wrist.setWristAngle(220); // Human Player
+              break;
+            case 4:
+              wrist.setWristAngle(190); // Human Player
               break;
           }
         },
