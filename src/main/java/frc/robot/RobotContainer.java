@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.AlgeaCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorWristCommands;
-import frc.robot.commands.FunnelCommands;
 import frc.robot.commands.IntakeCommands;
 import frc.robot.commands.SetWristAndElevator;
 import frc.robot.generated.TunerConstants;
@@ -86,7 +85,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("IntakeL3", ElevatorWristCommands.setWristLevel(wrist, 2));
     NamedCommands.registerCommand("IntakeHuman", ElevatorWristCommands.setWristLevel(wrist, 3));
     NamedCommands.registerCommand("IntakeAlgae", ElevatorWristCommands.setWristLevel(wrist, 4));
-    NamedCommands.registerCommand("Flywheel", AlgeaCommands.shoot(shooter, ));
+    // NamedCommands.registerCommand("Flywheel", AlgeaCommands.shoot(shooter, ));
 
     // Real robot, instantiate hardware IO implementations
     // vision = new LimeLight();
@@ -178,16 +177,13 @@ public class RobotContainer {
                 () -> vision.autoTranslateX(),
                 () -> new Rotation2d(Units.degreesToRadians(vision.autoRotate()))));
     */
-    // Reset gyro
-    // controller
-    //     .y()
-    //     .onTrue(
-    //         Commands.runOnce(
-    //                 () ->
-    //                     drive.setPose(
-    //                         new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
-    //                 drive)
-    //             .ignoringDisable(true));
+    // Tare swerve pos
+    /*controller
+    .y()
+    .onTrue(
+        Command.runOnce(() -> drive.setPose(new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
+                drive)
+            .ignoringDisable(true));*/
 
     // controller.y().onTrue(new SetWristAndElevator(this, 0));
     // level 1 state, depend on is coral loaded
@@ -217,24 +213,23 @@ public class RobotContainer {
         .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 3));
     c_controller2
         .leftBumper()
-        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));
+        .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));*/
 
     // manuel elevator
-    c_controller2.x().onTrue(ElevatorWristCommands.moveElevator(elevator, 0.5));
-    c_controller2.x().onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
+    c_controller2.y().onTrue(ElevatorWristCommands.moveElevator(elevator, 0.5));
+    c_controller2.y().onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
     c_controller2.a().onTrue(ElevatorWristCommands.moveElevator(elevator, -0.5));
     c_controller2.a().onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
 
     // manuel wrist
-    c_controller2.y().onTrue(ElevatorWristCommands.moveWrist(wrist, 1));
-    c_controller2.y().onFalse(ElevatorWristCommands.stopWrist(wrist));
-
-    c_controller2.rightBumper().onTrue(ElevatorWristCommands.moveWrist(wrist, -1));
-    c_controller2.rightBumper().onFalse(ElevatorWristCommands.stopWrist(wrist));*/
-
+    c_controller2.b().onTrue(ElevatorWristCommands.moveWrist(wrist, 1));
+    c_controller2.b().onFalse(ElevatorWristCommands.stopWrist(wrist));
+    c_controller2.a().onTrue(ElevatorWristCommands.moveWrist(wrist, -1));
+    c_controller2.a().onFalse(ElevatorWristCommands.stopWrist(wrist));
+    /*
     // funnel
     controller.leftBumper().onTrue(FunnelCommands.FunnelUp(funnel));
-    controller.leftTrigger().onTrue(FunnelCommands.FunnelDown(funnel));
+    controller.leftTrigger().onTrue(FunnelCommands.FunnelDown(funnel));*/
 
     // wrist
     controller
