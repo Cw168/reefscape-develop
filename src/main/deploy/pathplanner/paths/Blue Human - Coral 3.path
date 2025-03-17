@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 0.7,
-        "y": 7.7
+        "y": 7.5
       },
       "prevControl": null,
       "nextControl": {
         "x": 2.8447802746187305,
-        "y": 6.291422262987715
+        "y": 6.091422262987715
       },
       "isLocked": false,
       "linkedName": null
@@ -20,7 +20,7 @@
         "y": 4.787114448054628
       },
       "prevControl": {
-        "x": 1.6663978221825944,
+        "x": 1.6663978221825948,
         "y": 7.567378096587092
       },
       "nextControl": null,
@@ -45,7 +45,7 @@
     "rotation": -62.102728969052436
   },
   "reversed": false,
-  "folder": "New Folder",
+  "folder": "Alliance Side",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 112.50357704448741

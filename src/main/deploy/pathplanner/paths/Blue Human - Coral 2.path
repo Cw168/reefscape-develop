@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5,
-        "y": 8.0
+        "x": 0.75,
+        "y": 7.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0963739577161125,
-        "y": 6.9238277528965
+        "x": 2.3463739577161125,
+        "y": 6.4238277528965
       },
       "isLocked": false,
       "linkedName": null
@@ -45,7 +45,7 @@
     "rotation": -56.162328130720375
   },
   "reversed": false,
-  "folder": "New Folder",
+  "folder": "Alliance Side",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 112.04079549022383

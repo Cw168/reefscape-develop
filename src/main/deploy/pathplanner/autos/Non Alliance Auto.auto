@@ -17,7 +17,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Start - Coral 1"
+                  "pathName": "Red Start - Coral 1"
                 }
               },
               {
@@ -79,7 +79,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Coral 1 - Human"
+                  "pathName": "Red Coral 1 - Human"
                 }
               }
             ]
@@ -123,7 +123,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Human - Coral 2"
+                  "pathName": "Red Human - Coral 2"
                 }
               }
             ]
@@ -144,7 +144,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Coral 2 - Algae"
+            "pathName": "Red Coral 2 - Algae"
           }
         },
         {
@@ -185,7 +185,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Coral 2 - Human"
+                  "pathName": "Red Algae - Human"
                 }
               }
             ]
@@ -229,7 +229,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Human - Coral 3"
+                  "pathName": "Red Human - Coral 3"
                 }
               }
             ]

@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 3.4531834532374104,
+        "x": 3.453,
         "y": 5.1
       },
       "prevControl": {
-        "x": 3.7654508820604784,
+        "x": 3.765267428823068,
         "y": 5.094713985718904
       },
       "nextControl": null,
@@ -45,7 +45,7 @@
     "rotation": -36.78314169104333
   },
   "reversed": false,
-  "folder": "New Folder",
+  "folder": "Alliance Side",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -38.69979641932791
