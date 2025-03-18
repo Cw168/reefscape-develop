@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 0.75,
+        "x": 0.5,
         "y": 0.5
       },
       "prevControl": {
-        "x": 0.5544911404666536,
+        "x": 0.3044911404666536,
         "y": 0.34419150907614104
       },
       "nextControl": null,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -160.3699786347478
+    "rotation": -130.44474918888403
   },
   "reversed": false,
   "folder": "Non Alliance Side",

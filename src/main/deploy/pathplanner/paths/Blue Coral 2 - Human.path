@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 0.75,
+        "x": 0.5,
         "y": 7.5
       },
       "prevControl": {
-        "x": 0.8773963341331705,
+        "x": 0.6273963341331705,
         "y": 7.284894969725416
       },
       "nextControl": null,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 110.13486620147351
+    "rotation": 125.26126625935288
   },
   "reversed": false,
   "folder": "Alliance Side",

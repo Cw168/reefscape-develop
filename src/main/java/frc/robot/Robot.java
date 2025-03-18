@@ -109,8 +109,7 @@ public class Robot extends LoggedRobot {
     // the Command-based framework to work.
     CommandScheduler.getInstance().run();
     ElevatorWristCommands.moveWrist(robotContainer.wrist, robotContainer.c_controller2.getLeftY());
-    ElevatorWristCommands.moveElevator(
-        robotContainer.elevator, robotContainer.c_controller2.getRightY());
+    ElevatorWristCommands.moveElevator(robotContainer.elevator, robotContainer.c_controller2.getRightY());
   }
 
   /** This function is called once when the robot is disabled. */
