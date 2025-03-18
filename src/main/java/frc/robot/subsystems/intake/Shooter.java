@@ -55,7 +55,16 @@ public class Shooter extends SubsystemBase {
       rightShooter.set(-1);
       leftShooter.set(1);
     } else {
+      rightShooter.setVoltage(0);
+      leftShooter.setVoltage(0);
+    }
+  }
 
+  public void shootRev(boolean moveShooter) {
+    if (moveShooter) {
+      rightShooter.set(0.5);
+      leftShooter.set(-0.5);
+    } else {
       rightShooter.setVoltage(0);
       leftShooter.setVoltage(0);
     }

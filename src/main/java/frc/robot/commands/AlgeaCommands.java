@@ -31,6 +31,14 @@ public class AlgeaCommands {
         shooter);
   }
 
+  public static Command shootRev(Shooter shooter, boolean isShooting) {
+    return Commands.runOnce(
+        () -> {
+          shooter.shootRev(isShooting);
+        },
+        shooter);
+  }
+
   public static Command positionIntake(Wrist wrist) {
     return Commands.run(
         () -> {

@@ -162,6 +162,11 @@ public class Wrist extends SubsystemBase {
   }
 
   public void intakeSpeed(double speed) {
+    if (speed > 0) { // Intake Coral
+      SmartDashboard.putBoolean("Coral Intake", true);
+    } else if (speed < 0) { // Outake Coral
+      SmartDashboard.putBoolean("Coral Intake", false);
+    }
     wristIntake.set(speed);
   }
 
