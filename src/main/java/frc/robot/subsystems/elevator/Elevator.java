@@ -7,27 +7,28 @@
 
 package frc.robot.subsystems.elevator;
 
-import static frc.robot.util.PhoenixUtil.tryUntilOk;
+import java.util.function.BooleanSupplier;
+
+import org.littletonrobotics.junction.AutoLog;
+import org.littletonrobotics.junction.Logger;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
-import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SuperStructureState;
 import frc.robot.generated.TunerConstants;
-import java.util.function.BooleanSupplier;
-import org.littletonrobotics.junction.AutoLog;
-import org.littletonrobotics.junction.Logger;
+import static frc.robot.util.PhoenixUtil.tryUntilOk;
 
 public class Elevator extends SubsystemBase {
   public static final double ELEVATOR_GEAR_REDUCTION = 5.0;
@@ -43,7 +44,7 @@ public class Elevator extends SubsystemBase {
   private final TalonFX talon;
   private final TalonFX followerTalon;
 
-  PositionVoltage pPos = new PositionVoltage(0);
+
   MotionMagicVoltage pMmPos = new MotionMagicVoltage(0);
 
   @AutoLog
@@ -72,25 +73,16 @@ public class Elevator extends SubsystemBase {
     armTalonConfig.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_REDUCTION;
 
     armTalonConfig.ClosedLoopRamps.VoltageClosedLoopRampPeriod = 0.2;
-    // Hold the ARM
-    armTalonConfig.Slot1.GravityType = GravityTypeValue.Elevator_Static;
-    armTalonConfig.Slot1.kG = 0.3; // 0.35; // 0.35; // to hold the arm weight
-    armTalonConfig.Slot1.kP = 10; // 40; // 60; // 60; // 100; // adjust PID
-    armTalonConfig.Slot1.kI = 0;
-    armTalonConfig.Slot1.kD = 0; // 0.02;
-    armTalonConfig.Slot1.kS = 0;
-    armTalonConfig.Slot1.kV = 0;
-    armTalonConfig.Slot1.kA = 0;
 
     // Move the arm
     armTalonConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
     armTalonConfig.Slot0.kG = 0.3; // 0.35; // 0.35; // to hold the arm weight
-    armTalonConfig.Slot0.kP = 50; // 40; // 60; // 100; // adjust PID
+    armTalonConfig.Slot0.kP = 60; // 40; // 60; // 100; // adjust PID
     armTalonConfig.Slot0.kI = 0;
     armTalonConfig.Slot0.kD = 0;
     armTalonConfig.Slot0.kS = 0;
-    armTalonConfig.Slot0.kV = 8; // 10; // 8.3; // move velocity
-    armTalonConfig.Slot0.kA = 1; // 0.2; // move accerleration
+    armTalonConfig.Slot0.kV = 30; // 10; // 8.3; // move velocity
+    armTalonConfig.Slot0.kA = 10; // 0.2; // move accerleration
 
     armTalonConfig.MotionMagic.MotionMagicCruiseVelocity = 50; // 1.0; // 0.5;
     armTalonConfig.MotionMagic.MotionMagicAcceleration = 2; // 2; // 1.0;
@@ -98,8 +90,6 @@ public class Elevator extends SubsystemBase {
 
     pMmPos.Slot = 0;
     pMmPos.EnableFOC = true;
-    pPos.Slot = 1;
-    pPos.EnableFOC = true;
     // Set up armTalonConfig
     tryUntilOk(5, () -> talon.getConfigurator().apply(armTalonConfig, 0.25));
 
