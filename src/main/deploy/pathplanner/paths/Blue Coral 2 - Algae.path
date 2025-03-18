@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 3.8,
-        "y": 5.1
+        "y": 5.0
       },
       "prevControl": null,
       "nextControl": {
         "x": 3.1646149120210723,
-        "y": 5.1047612642539955
+        "y": 5.004761264253996
       },
       "isLocked": false,
       "linkedName": null
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 3.453,
-        "y": 5.1
+        "y": 5.0
       },
       "prevControl": {
         "x": 3.765267428823068,
-        "y": 5.094713985718904
+        "y": 4.994713985718905
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.78314169104333
+    "rotation": -50.01525046631791
   },
   "reversed": false,
   "folder": "Alliance Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -38.69979641932791
+    "rotation": -53.64355166357785
   },
   "useDefaultConstraints": true
 }
