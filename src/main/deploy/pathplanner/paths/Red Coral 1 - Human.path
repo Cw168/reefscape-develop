@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.824838129496402,
-        "y": 3.4643525179856116
+        "x": 5.929784272723474,
+        "y": 3.47055295093084
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.5,
+        "x": 0.1,
         "y": 0.5
       },
       "prevControl": {
-        "x": 0.2997544452221075,
-        "y": 0.6496720341002096
+        "x": -0.3294894829236451,
+        "y": 0.30222501688361997
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Non Alliance Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 149.43888220042868
+    "rotation": 122.71806453549961
   },
   "useDefaultConstraints": true
 }

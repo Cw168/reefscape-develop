@@ -60,6 +60,8 @@ public class RobotContainer {
   public static boolean groundIntake = true;
   ShuffleboardTab autoSystem;
 
+  private boolean intakeToggle = false;
+
   public Drive getDrive() {
     return drive;
   }
@@ -216,16 +218,30 @@ public class RobotContainer {
         .onTrue(ElevatorWristCommands.setElevatorWristStage(elevator, wrist, 4));*/
 
     // manuel elevator
-    c_controller2.y().onTrue(ElevatorWristCommands.moveElevator(elevator, 0.5));
+    c_controller2.y().onTrue(ElevatorWristCommands.moveElevator(elevator, -0.5));
     c_controller2.y().onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
-    c_controller2.a().onTrue(ElevatorWristCommands.moveElevator(elevator, -0.5));
+    c_controller2.a().onTrue(ElevatorWristCommands.moveElevator(elevator, 0.5));
     c_controller2.a().onFalse(ElevatorWristCommands.moveElevator(elevator, 0));
 
     // manuel wrist
-    c_controller2.b().onTrue(ElevatorWristCommands.moveWrist(wrist, 1));
+    c_controller2.b().onTrue(ElevatorWristCommands.moveWrist(wrist, -1));
     c_controller2.b().onFalse(ElevatorWristCommands.stopWrist(wrist));
-    c_controller2.a().onTrue(ElevatorWristCommands.moveWrist(wrist, -1));
-    c_controller2.a().onFalse(ElevatorWristCommands.stopWrist(wrist));
+    c_controller2.x().onTrue(ElevatorWristCommands.moveWrist(wrist, 1));
+    c_controller2.x().onFalse(ElevatorWristCommands.stopWrist(wrist));
+    controller
+        .a()
+        .onTrue(
+            (ElevatorWristCommands.moveWrist(wrist, -1)
+                    .withTimeout(0.1)
+                    .andThen(ElevatorWristCommands.moveWrist(wrist, 1).withTimeout(0.1))
+                    .andThen(() -> intakeToggle = false)
+                    .repeatedly())
+                .onlyIf(() -> intakeToggle == true)
+                .andThen((ElevatorWristCommands.stopElevator(elevator)))
+                .andThen(() -> intakeToggle = true)
+                .onlyIf(() -> intakeToggle == false));
+
+    // controller.a().toggleOnFalse(ElevatorWristCommands.stopWrist(wrist));
     /*
     // funnel
     controller.leftBumper().onTrue(FunnelCommands.FunnelUp(funnel));

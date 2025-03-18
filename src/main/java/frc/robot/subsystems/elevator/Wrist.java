@@ -135,7 +135,7 @@ public class Wrist extends SubsystemBase {
       manuelMoving = true;
       if (pivotInputs.currentAngle <= maxAngle + 15 && pivotInputs.currentAngle >= minAngle - 15) {
         talon.set(moveWrist);
-        SmartDashboard.putNumber("A", 1);
+        SmartDashboard.putNumber("A", moveWrist);
       } else if (pivotInputs.currentAngle >= maxAngle) {
         SmartDashboard.putNumber("A", 2);
         talon.set(-0.1);
