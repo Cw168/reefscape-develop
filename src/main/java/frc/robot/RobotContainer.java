@@ -78,7 +78,7 @@ public class RobotContainer {
     funnel = new Funnel();
     NamedCommands.registerCommand("L2", new SetWristAndElevator(this, 1));
     NamedCommands.registerCommand("L3", new SetWristAndElevator(this, 2));
-    NamedCommands.registerCommand("LH", new SetWristAndElevator(this, 8));
+    NamedCommands.registerCommand("LH", new SetWristAndElevator(this, 5));
     NamedCommands.registerCommand("L0", new SetWristAndElevator(this, 0));
     NamedCommands.registerCommand("L2A", new SetWristAndElevator(this, 6));
     NamedCommands.registerCommand("L3A", new SetWristAndElevator(this, 7));
