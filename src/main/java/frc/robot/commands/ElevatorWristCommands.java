@@ -89,13 +89,23 @@ public class ElevatorWristCommands {
         },
         wrist);
   }
-
+  static boolean groundPos = true;
+  static int curLevel = 10;
   public static Command setWristLevel(Wrist wrist, int level) {
     return Commands.runOnce(
-        () -> {
-          switch (level) {
+        () -> 
+        {
+          if(curLevel != 0 && level == 0)
+            groundPos = true;
+          curLevel = level;
+          switch (level) 
+          {
             case 0:
-              wrist.setWristAngle(145); // Ground Intake
+              if(groundPos)
+                wrist.setWristAngle(145); // Ground Intake
+              else
+                wrist.setWristAngle(170);
+              groundPos = !groundPos;
               break;
             case 1:
               wrist.setWristAngle(170); // L2
@@ -104,10 +114,10 @@ public class ElevatorWristCommands {
               wrist.setWristAngle(170); // L3
               break;
             case 3:
-              wrist.setWristAngle(203); // Human Player
+              wrist.setWristAngle(220); // Human Player
               break;
             case 4:
-              wrist.setWristAngle(180); // Human Player
+              wrist.setWristAngle(190); // Human Player
               break;
           }
         },
