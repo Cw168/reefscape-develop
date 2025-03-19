@@ -4,6 +4,7 @@
   "holonomicMode": true,
   "pathFolders": [
     "Alliance Side",
+    "Taxi",
     "Non Alliance Side"
   ],
   "autoFolders": [],

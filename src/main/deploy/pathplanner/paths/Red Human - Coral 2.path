@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.025,
+        "x": 0.045,
         "y": 0.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.511511963224211,
-        "y": 1.9087381042893545
+        "x": 0.6552759740259739,
+        "y": 1.3469155844155842
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 3.1
       },
       "prevControl": {
-        "x": 0.6289502152282354,
-        "y": 1.4426863575443705
+        "x": 2.9131290584415583,
+        "y": 0.4993303571428567
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 51.78297484886494
+    "rotation": 69.30566071763265
   },
   "reversed": false,
   "folder": "Non Alliance Side",

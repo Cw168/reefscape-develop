@@ -58,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 52.885342604263286
+    "rotation": 65.22460422407204
   },
   "reversed": false,
   "folder": "Non Alliance Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 52.46478672237134
+    "rotation": 66.55057917156691
   },
   "useDefaultConstraints": true
 }
