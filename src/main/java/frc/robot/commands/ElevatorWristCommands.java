@@ -114,10 +114,10 @@ public class ElevatorWristCommands {
               wrist.setWristAngle(170); // L3
               break;
             case 3:
-              wrist.setWristAngle(220); // Human Player
+              wrist.setWristAngle(203); // Human Player
               break;
             case 4:
-              wrist.setWristAngle(190); // Human Player
+              wrist.setWristAngle(180); // Human Player
               break;
           }
         },

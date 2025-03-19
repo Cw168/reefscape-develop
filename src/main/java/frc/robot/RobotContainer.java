@@ -62,6 +62,7 @@ public class RobotContainer {
   public static boolean transferState = true;
   ShuffleboardTab autoSystem;
   private boolean intakeToggle = false;
+  public static boolean groundIntake = false;
 
   public Drive getDrive() {
     return drive;
@@ -237,7 +238,7 @@ public class RobotContainer {
 
     c_controller2.rightBumper().onTrue(ElevatorWristCommands.moveWrist(wrist, -1));
     c_controller2.rightBumper().onFalse(ElevatorWristCommands.stopWrist(wrist));*/
-    
+
     c_controller2.y().onTrue(ElevatorWristCommands.moveElevator(elevator, -0.5));
     c_controller2.y().onFalse(ElevatorWristCommands.stopElevator(elevator));
     c_controller2.a().onTrue(ElevatorWristCommands.moveElevator(elevator, 0.5));
