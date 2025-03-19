@@ -64,7 +64,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "L0"
+                        "name": "LH"
                       }
                     },
                     {
@@ -83,6 +83,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of Red Coral 1 - Human"
           }
         },
         {

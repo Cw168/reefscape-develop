@@ -259,9 +259,11 @@ public class RobotContainer {
                     .andThen(() -> intakeToggle = false)
                     .repeatedly()),
                 ElevatorWristCommands.stopWrist(wrist)
-                    .andThen(ElevatorWristCommands.setWristLevel(wrist, 0))
+                    .andThen(ElevatorWristCommands.stopWrist(wrist))
                     .andThen(() -> intakeToggle = true),
                 () -> intakeToggle));
+
+    c_controller2.leftTrigger().onTrue(ElevatorWristCommands.setWristLevel(wrist, 5));
 
     // funnel
     controller.leftBumper().onTrue(FunnelCommands.FunnelUp(funnel));

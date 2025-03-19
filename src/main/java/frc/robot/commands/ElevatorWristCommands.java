@@ -89,35 +89,35 @@ public class ElevatorWristCommands {
         },
         wrist);
   }
+
   static boolean groundPos = true;
   static int curLevel = 10;
+
   public static Command setWristLevel(Wrist wrist, int level) {
     return Commands.runOnce(
-        () -> 
-        {
-          if(curLevel != 0 && level == 0)
-            groundPos = true;
+        () -> {
+          if (curLevel != 0 && level == 0) groundPos = true;
           curLevel = level;
-          switch (level) 
-          {
+          switch (level) {
             case 0:
-              if(groundPos)
-                wrist.setWristAngle(145); // Ground Intake
-              else
-                wrist.setWristAngle(170);
+              if (groundPos) wrist.setWristAngle(145); // Ground Intake
+              else wrist.setWristAngle(170);
               groundPos = !groundPos;
               break;
             case 1:
-              wrist.setWristAngle(170); // L2
+              wrist.setWristAngle(155); // L2 //170
               break;
             case 2:
-              wrist.setWristAngle(170); // L3
+              wrist.setWristAngle(155); // L3 //170
               break;
             case 3:
               wrist.setWristAngle(203); // Human Player
               break;
             case 4:
               wrist.setWristAngle(180); // Human Player
+              break;
+            case 5:
+              wrist.zeroWrist();
               break;
           }
         },

@@ -79,8 +79,8 @@ public class Elevator extends SubsystemBase {
     armTalonConfig.Slot0.kD = 0;
     armTalonConfig.Slot0.kS = 0;
 
-    armTalonConfig.MotionMagic.MotionMagicCruiseVelocity = 50; // 1.0; // 0.5;
-    armTalonConfig.MotionMagic.MotionMagicAcceleration = 2; // 2; // 1.0;
+    armTalonConfig.MotionMagic.MotionMagicCruiseVelocity = 70; // 1.0; // 0.5;
+    armTalonConfig.MotionMagic.MotionMagicAcceleration = 10; // 2; // 1.0;
     armTalonConfig.MotionMagic.MotionMagicJerk = 0; // 10; // 10;
 
     pMmPos.Slot = 0;

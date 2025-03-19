@@ -178,4 +178,8 @@ public class Wrist extends SubsystemBase {
     boolean flag = Math.abs(targetDegrees - pivotInputs.currentAngle) < 3;
     return () -> flag;
   }
+
+  public void zeroWrist() {
+    targetDegrees = 0;
+  }
 }
