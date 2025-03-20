@@ -117,8 +117,6 @@ public class Wrist extends SubsystemBase {
     if (DriverStation.isDisabled()) {
       talon.setControl(new NeutralOut());
     }
-    SmartDashboard.putNumber("TarAngle", targetDegrees);
-    SmartDashboard.putNumber("CurAngle", pivotInputs.currentAngle);
   }
 
   public void setVoltage(double voltage) {
@@ -135,12 +133,9 @@ public class Wrist extends SubsystemBase {
       manuelMoving = true;
       if (pivotInputs.currentAngle <= maxAngle + 15 && pivotInputs.currentAngle >= minAngle - 15) {
         talon.set(moveWrist);
-        SmartDashboard.putNumber("A", moveWrist);
       } else if (pivotInputs.currentAngle >= maxAngle) {
-        SmartDashboard.putNumber("A", 2);
         talon.set(-0.1);
       } else if (pivotInputs.currentAngle <= minAngle) {
-        SmartDashboard.putNumber("A", 3);
         talon.set(0.1);
       }
     }

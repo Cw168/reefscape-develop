@@ -21,6 +21,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SuperStructureState;
 import frc.robot.generated.TunerConstants;
@@ -92,6 +93,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public void manualMove(double velocity) {
+    SmartDashboard.putString("Elevator", "Manual");
     if (velocity != 0) manuelMoving = true;
     else manuelMoving = false;
     talon.set(-velocity);
